@@ -1,0 +1,115 @@
+fileFormatVersion: 2
+guid: d63c1d0fb8e41434c933623aa74f09d0
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: scp_we_submachine_gun_03
+    100002: //RootNode
+    100004: scp_we_submachine_gun_03_compensator
+    100006: scp_we_submachine_gun_03_flashlight_laser
+    100008: scp_we_submachine_gun_03_holo_sight
+    100010: scp_we_submachine_gun_03_mag
+    100012: scp_we_submachine_gun_03_mag_clamps
+    100014: scp_we_submachine_gun_03_scope
+    100016: scp_we_submachine_gun_03_silencer
+    100018: scp_we_submachine_gun_03_trigger
+    400000: //RootNode
+    400002: scp_we_submachine_gun_03
+    400004: scp_we_submachine_gun_03_compensator
+    400006: scp_we_submachine_gun_03_flashlight_laser
+    400008: scp_we_submachine_gun_03_holo_sight
+    400010: scp_we_submachine_gun_03_mag
+    400012: scp_we_submachine_gun_03_mag_clamps
+    400014: scp_we_submachine_gun_03_scope
+    400016: scp_we_submachine_gun_03_silencer
+    400018: scp_we_submachine_gun_03_trigger
+    2300000: scp_we_submachine_gun_03
+    2300002: scp_we_submachine_gun_03_compensator
+    2300004: scp_we_submachine_gun_03_flashlight_laser
+    2300006: scp_we_submachine_gun_03_holo_sight
+    2300008: scp_we_submachine_gun_03_mag
+    2300010: scp_we_submachine_gun_03_mag_clamps
+    2300012: scp_we_submachine_gun_03_scope
+    2300014: scp_we_submachine_gun_03_silencer
+    2300016: scp_we_submachine_gun_03_trigger
+    3300000: scp_we_submachine_gun_03
+    3300002: scp_we_submachine_gun_03_compensator
+    3300004: scp_we_submachine_gun_03_flashlight_laser
+    3300006: scp_we_submachine_gun_03_holo_sight
+    3300008: scp_we_submachine_gun_03_mag
+    3300010: scp_we_submachine_gun_03_mag_clamps
+    3300012: scp_we_submachine_gun_03_scope
+    3300014: scp_we_submachine_gun_03_silencer
+    3300016: scp_we_submachine_gun_03_trigger
+    4300000: scp_we_submachine_gun_03
+    4300002: scp_we_submachine_gun_03_holo_sight
+    4300004: scp_we_submachine_gun_03_mag_clamps
+    4300006: scp_we_submachine_gun_03_trigger
+    4300008: scp_we_submachine_gun_03_scope
+    4300010: scp_we_submachine_gun_03_flashlight_laser
+    4300012: scp_we_submachine_gun_03_mag
+    4300014: scp_we_submachine_gun_03_silencer
+    4300016: scp_we_submachine_gun_03_compensator
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

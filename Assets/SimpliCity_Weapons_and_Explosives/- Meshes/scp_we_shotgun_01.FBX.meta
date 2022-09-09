@@ -1,0 +1,150 @@
+fileFormatVersion: 2
+guid: 06eeaf9195ed97c4aa6965c3c24eaf9d
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: scp_we_ammo_shotgun_shell_01
+    100002: scp_we_ammo_shotgun_shell_01 1
+    100004: scp_we_ammo_shotgun_shell_01 2
+    100006: scp_we_ammo_shotgun_shell_01 3
+    100008: scp_we_ammo_shotgun_shell_01 4
+    100010: //RootNode
+    100012: scp_we_shotgun_01
+    100014: scp_we_shotgun_01_cocking_lever
+    100016: scp_we_shotgun_01_compensator
+    100018: scp_we_shotgun_01_flashlight_laser
+    100020: scp_we_shotgun_01_forend
+    100022: scp_we_shotgun_01_grip
+    100024: scp_we_shotgun_01_holo_sight
+    100026: scp_we_shotgun_01_scope
+    100028: scp_we_shotgun_01_shell_holder
+    100030: scp_we_shotgun_01_silencer
+    100032: scp_we_shotgun_01_trigger
+    400000: scp_we_ammo_shotgun_shell_01
+    400002: scp_we_ammo_shotgun_shell_01 1
+    400004: scp_we_ammo_shotgun_shell_01 2
+    400006: scp_we_ammo_shotgun_shell_01 3
+    400008: scp_we_ammo_shotgun_shell_01 4
+    400010: //RootNode
+    400012: scp_we_shotgun_01
+    400014: scp_we_shotgun_01_cocking_lever
+    400016: scp_we_shotgun_01_compensator
+    400018: scp_we_shotgun_01_flashlight_laser
+    400020: scp_we_shotgun_01_forend
+    400022: scp_we_shotgun_01_grip
+    400024: scp_we_shotgun_01_holo_sight
+    400026: scp_we_shotgun_01_scope
+    400028: scp_we_shotgun_01_shell_holder
+    400030: scp_we_shotgun_01_silencer
+    400032: scp_we_shotgun_01_trigger
+    2300000: scp_we_ammo_shotgun_shell_01
+    2300002: scp_we_ammo_shotgun_shell_01 1
+    2300004: scp_we_ammo_shotgun_shell_01 2
+    2300006: scp_we_ammo_shotgun_shell_01 3
+    2300008: scp_we_ammo_shotgun_shell_01 4
+    2300010: scp_we_shotgun_01
+    2300012: scp_we_shotgun_01_cocking_lever
+    2300014: scp_we_shotgun_01_compensator
+    2300016: scp_we_shotgun_01_flashlight_laser
+    2300018: scp_we_shotgun_01_forend
+    2300020: scp_we_shotgun_01_grip
+    2300022: scp_we_shotgun_01_holo_sight
+    2300024: scp_we_shotgun_01_scope
+    2300026: scp_we_shotgun_01_shell_holder
+    2300028: scp_we_shotgun_01_silencer
+    2300030: scp_we_shotgun_01_trigger
+    3300000: scp_we_ammo_shotgun_shell_01
+    3300002: scp_we_ammo_shotgun_shell_01 1
+    3300004: scp_we_ammo_shotgun_shell_01 2
+    3300006: scp_we_ammo_shotgun_shell_01 3
+    3300008: scp_we_ammo_shotgun_shell_01 4
+    3300010: scp_we_shotgun_01
+    3300012: scp_we_shotgun_01_cocking_lever
+    3300014: scp_we_shotgun_01_compensator
+    3300016: scp_we_shotgun_01_flashlight_laser
+    3300018: scp_we_shotgun_01_forend
+    3300020: scp_we_shotgun_01_grip
+    3300022: scp_we_shotgun_01_holo_sight
+    3300024: scp_we_shotgun_01_scope
+    3300026: scp_we_shotgun_01_shell_holder
+    3300028: scp_we_shotgun_01_silencer
+    3300030: scp_we_shotgun_01_trigger
+    4300000: scp_we_shotgun_01
+    4300002: scp_we_shotgun_01_holo_sight
+    4300004: scp_we_shotgun_01_scope
+    4300006: scp_we_shotgun_01_flashlight_laser
+    4300008: scp_we_shotgun_01_grip
+    4300010: scp_we_shotgun_01_silencer
+    4300012: scp_we_shotgun_01_compensator
+    4300014: scp_we_shotgun_01_shell_holder
+    4300016: scp_we_shotgun_01_cocking_lever
+    4300018: scp_we_shotgun_01_trigger
+    4300020: scp_we_shotgun_01_forend
+    4300022: scp_we_ammo_shotgun_shell_01
+    4300024: scp_we_ammo_shotgun_shell_01
+    4300026: scp_we_ammo_shotgun_shell_01
+    4300028: scp_we_ammo_shotgun_shell_01
+    4300030: scp_we_ammo_shotgun_shell_01
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
