@@ -20,6 +20,7 @@ namespace Extensions
 
         public void Pop(GameObject gameObject)
         {
+            gameObject.SetActive(false);
             pooledGameObjects.Add(gameObject);
         }
 
@@ -28,7 +29,10 @@ namespace Extensions
             if (pooledGameObjects.Count == 0)
                 IncreaseGameObjectPool();
 
-            return pooledGameObjects[^1];
+            GameObject pulledGameObject = pooledGameObjects[^1];
+            pulledGameObject.SetActive(true);
+            pooledGameObjects.Remove(pulledGameObject);
+            return pulledGameObject;
         }
 
         private void IncreaseGameObjectPool()

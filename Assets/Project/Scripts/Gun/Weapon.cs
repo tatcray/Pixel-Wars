@@ -10,15 +10,18 @@ namespace Weapon
         private Transform transform;
         private GameObject gameObject;
         private Coroutine shootCoroutine;
-        private WaitForSeconds waitCorotuine;
+        private WaitForSeconds shootWaitCoroutine;
+        private WaitForSeconds slaveWaitCoroutine;
 
         private GameObjectPool slavePool;
         
         private BulletPool bulletPool;
         private Transform bulletReleaseAnchor;
+        private Transform slaveAnchor;
         private ParticleSystem bulletReleaseParticles;
         private Animation shootAnimation;
-
+        private Vector3 slaveReleaseForce;
+        
         private int defaultAmmo;
         private int currentAmmo;
         
@@ -32,8 +35,11 @@ namespace Weapon
 
             bulletReleaseAnchor = dependency.bulletReleaseAnchor;
             bulletReleaseParticles = dependency.bulletReleaseParticles;
+            slaveWaitCoroutine = new WaitForSeconds(dependency.slaveLifeTime);
+            slaveReleaseForce = dependency.slaveForce;
             
             bulletPool = new BulletPool(dependency.bulletConfig);
+            slaveAnchor = dependency.weaponSlaveAnchor;
             shootAnimation = dependency.shootAnimation;
 
             slavePool = new GameObjectPool(dependency.slavePrefab);
@@ -41,7 +47,7 @@ namespace Weapon
         
         public void SetConfig(WeaponConfig config)
         {
-            waitCorotuine = new WaitForSeconds(config.fireRate);
+            shootWaitCoroutine = new WaitForSeconds(config.fireRate);
             damage = config.damage;
             radius = config.radius;
             defaultAmmo = config.ammo;
@@ -95,20 +101,32 @@ namespace Weapon
 
         protected void ReleaseSlave()
         {
+            GameObject slave = slavePool.Pull();
+            slave.transform.rotation = slaveAnchor.rotation;
+            slave.transform.position = slaveAnchor.position;
+
+            Rigidbody slaveRigidBody = slave.GetComponent<Rigidbody>();
+            slaveRigidBody.velocity = Vector3.zero;
+            slaveRigidBody.AddForce(slaveReleaseForce, ForceMode.Impulse);
             
+            CoroutinesHolder.StartCoroutine(SlaveDisappearCoroutine(slave));
         } 
 
         protected IEnumerator ShootCoroutine()
         {
             while(true)
             {
-                yield return waitCorotuine;
+                yield return shootWaitCoroutine;
                 shootAnimation.Play();
                 ReleaseBullet();
                 ReleaseSlave();
             }
         }
-        
-        protected IEnumerator 
+
+        protected IEnumerator SlaveDisappearCoroutine(GameObject slave)
+        {
+            yield return slaveWaitCoroutine;
+            slavePool.Pop(slave);
+        }
     }
 }

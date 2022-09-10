@@ -28,7 +28,7 @@ namespace Wall
             cubePixelsResolution = wallConfig.cubeResolution;
             wallPivot = wallConfig.pivot;
             cubeConfig = wallConfig.cubeConfig;
-            GameEvents.CubeFalled.Event += RegisterFalledCube;
+            GameEvents.CubeFalled.Event += RegisterCubeFall;
         }
 
         public void DestroyWall()
@@ -78,7 +78,7 @@ namespace Wall
                 cubeOffset = cubeRenderer.sprite.bounds.size.x;
             
             Cube cube = new Cube(cubeGameObject, cubeConfig);
-            cube.Falled += RegisterFalledCube;
+            cube.Falled += RegisterCubeFall;
             spawnedCubes.Add(cube);
             activeCubes.Add(cube);
         }
@@ -134,7 +134,7 @@ namespace Wall
             return newTexture;
         }
 
-        private void RegisterFalledCube(Cube cube)
+        private void RegisterCubeFall(Cube cube)
         {
             activeCubes.Remove(cube);
             CheckIsWallDestroyed();
