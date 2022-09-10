@@ -13,7 +13,7 @@ namespace Core
         [SerializeField]
         private DependenciesData dependencies;
         [SerializeField]
-        private DataSave save;
+        private BinaryDataSave save;
         
         private int loadedWallIndex;
         private WallManager wallManager;

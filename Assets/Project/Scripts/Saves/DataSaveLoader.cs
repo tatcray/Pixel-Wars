@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using Extensions;
 using UnityEngine;
 
@@ -8,7 +10,7 @@ namespace Saves
     public class DataSaveLoader
     {
         private static readonly string fileName = "savedata";
-        public static DataSave data { get; private set; } = new DataSave();
+        public static BinaryDataSave BinaryData { get; private set; } = new BinaryDataSave();
 
         public DataSaveLoader()
         {
@@ -16,30 +18,40 @@ namespace Saves
             UnityEvents.ApplicationQuit += Save;
         }
         
-        public DataSave LoadData()
+        public BinaryDataSave LoadData()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-
             if (File.Exists(GetCombinedPath()))
             {
-                Stream stream = new FileStream(GetCombinedPath(), FileMode.Open, FileAccess.ReadWrite);
-                data = (DataSave)formatter.Deserialize(stream);
+                Load();
             }
             else
             {
-                data = new DataSave();
+                BinaryData = new BinaryDataSave();
                 Save();
             }
 
-            return data;
+            return BinaryData;
+        }
+
+        private void Load()
+        {
+            Stream stream = new FileStream(GetCombinedPath(), FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(stream);
+            
+            BinaryData.Deserialize(reader);
+            
+            reader.Close();
+            stream.Close();
         }
 
         private void Save()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(GetCombinedPath(), FileMode.Create, FileAccess.ReadWrite);
+            BinaryWriter writer = new BinaryWriter(stream);
 
-            formatter.Serialize(stream, data.GetSerializableSave());
+            BinaryData.Serialize(writer);
+            
+            writer.Close();
             stream.Close();
         }
 

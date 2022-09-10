@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core;
 using Dependencies;
+using Extensions;
 using UnityEngine;
 
 namespace Wall
@@ -9,8 +10,8 @@ namespace Wall
     {
         private static readonly float wallDestroyedPercentToWin = 0.95f;
         
-        private List<Cube> activeCubes = new List<Cube>();
-        private List<Cube> spawnedCubes = new List<Cube>();
+        private CubePool cubePool;
+        private List<Cube> wallCubes = new List<Cube>();
         
         private int cubePixelsResolution;
         private Transform wallPivot;
@@ -18,6 +19,7 @@ namespace Wall
 
         private Texture2D texture;
         private int horizontalCubesCount;
+        private int spawnedCubesCount;
         private int verticalCubesCount;
         private float cubeOffset;
 
@@ -29,17 +31,18 @@ namespace Wall
             wallPivot = wallConfig.pivot;
             cubeConfig = wallConfig.cubeConfig;
             GameEvents.CubeFalled.Event += RegisterCubeFall;
+
+            cubePool = new CubePool(cubeConfig);
         }
 
         public void DestroyWall()
         {
-            for (int i = 0; i < spawnedCubes.Count; i++)
+            List<Cube> cubesToDeactivate = new List<Cube>(wallCubes);
+            foreach (Cube cube in cubesToDeactivate)
             {
-                spawnedCubes[i].DestroyCube();
+                cubePool.Pop(cube);
+                wallCubes.Remove(cube);
             }
-            
-            spawnedCubes.Clear();
-            activeCubes.Clear();
         }
 
         public void SpawnCubes(Sprite sprite)
@@ -56,6 +59,7 @@ namespace Wall
             for (int y = 0; y < verticalCubesCount; y++)
                 SpawnHorizontalCubesLine(y);
 
+            spawnedCubesCount = wallCubes.Count;
             CalculateActiveCubesToWin();
         }
 
@@ -67,25 +71,16 @@ namespace Wall
 
         private void SpawnAndDrawTextureOnCube(int x, int y)
         {
-            GameObject cubeGameObject = GameObject.Instantiate(cubeConfig.cubePrefab, wallPivot);
+            Cube cube = cubePool.Pull();
         
-            cubeGameObject.transform.localPosition = new Vector3(x * cubeOffset, y * cubeOffset);
-
-            SpriteRenderer cubeRenderer = cubeGameObject.GetComponent<SpriteRenderer>();
-            SetTextureOnCube(cubeRenderer, x, y);
+            cube.SetDefaultPosition(new Vector3(x * cubeOffset, y * cubeOffset));
+            cube.SetSprite(CreateSprite(x, y));
+            cube.Reset();
 
             if (cubeOffset == 0)
-                cubeOffset = cubeRenderer.sprite.bounds.size.x;
+                cubeOffset = cube.GetSpriteSize();
             
-            Cube cube = new Cube(cubeGameObject, cubeConfig);
-            cube.Falled += RegisterCubeFall;
-            spawnedCubes.Add(cube);
-            activeCubes.Add(cube);
-        }
-
-        private void SetTextureOnCube(SpriteRenderer cubeTextureHolder, int x, int y)
-        {
-            cubeTextureHolder.sprite = CreateSprite(x, y);
+            wallCubes.Add(cube);
         }
 
         private Sprite CreateSprite(int x, int y)
@@ -136,22 +131,21 @@ namespace Wall
 
         private void RegisterCubeFall(Cube cube)
         {
-            activeCubes.Remove(cube);
+            wallCubes.Remove(cube);
             CheckIsWallDestroyed();
         }
 
         private void CheckIsWallDestroyed()
         {
-            if (activeCubes.Count < requiredMinActiveCubesToWin)
+            if (wallCubes.Count < requiredMinActiveCubesToWin)
             {
                 GameEvents.GameEndedByWin.Invoke();
-                Debug.Log("win");
             }
         }
 
         private void CalculateActiveCubesToWin()
         {
-            requiredMinActiveCubesToWin = Mathf.CeilToInt(spawnedCubes.Count * (1 - wallDestroyedPercentToWin));
+            requiredMinActiveCubesToWin = Mathf.CeilToInt(spawnedCubesCount * (1 - wallDestroyedPercentToWin));
         }
     }
 }

@@ -7,14 +7,13 @@ namespace Wall
 {
     public class Cube
     {
-        public event Action<Cube> Falled;
-        
         private UnityLayer activeLayer;
         private UnityLayer fallLayer;
         
         private Rigidbody2D rigidbody;
         private Transform transform;
         private GameObject gameObject;
+        private SpriteRenderer spriteRenderer;
         
         private float defaultHealth;
         private float health;
@@ -25,23 +24,12 @@ namespace Wall
         {
             this.gameObject = gameObject;
             transform = gameObject.transform;
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             rigidbody = gameObject.GetComponent<Rigidbody2D>();
 
             defaultHealth = cubeConfig.defaultHealth;
             activeLayer = cubeConfig.activeCubeLayer;
             fallLayer = cubeConfig.fallCubeLayer;
-            
-            CubeTransformGlobalDictionary.Add(this, transform);
-            
-            SavePosition();
-            Reset();
-        }
-
-        public void DestroyCube()
-        {
-            CubeTransformGlobalDictionary.Remove(transform);
-            
-            GameObject.Destroy(gameObject);
         }
 
         public void Hide()
@@ -57,6 +45,16 @@ namespace Wall
         public Vector3 GetPosition()
         {
             return transform.position;
+        }
+
+        public float GetSpriteSize()
+        {
+            return spriteRenderer.sprite.bounds.size.x;
+        }
+
+        public void SetSprite(Sprite sprite)
+        {
+            spriteRenderer.sprite = sprite;
         }
     
         public void Reset()
@@ -92,9 +90,9 @@ namespace Wall
             rigidbody.AddForce(force, ForceMode2D.Force);
         }
     
-        private void SavePosition()
+        public void SetDefaultPosition(Vector3 position)
         {
-            savedPosition = transform.position;
+            savedPosition = position;
         }
 
         private void SetFall()

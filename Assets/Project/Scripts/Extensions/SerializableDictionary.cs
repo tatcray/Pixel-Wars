@@ -23,10 +23,9 @@ namespace Extensions
     }
     
     [Serializable]
-    public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+    public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver, ISerializable
     {
-        [SerializeField]
-        private List<SerializableKeyValuePair<TKey, TValue>> data;
+        public List<SerializableKeyValuePair<TKey, TValue>> data = new List<SerializableKeyValuePair<TKey, TValue>>();
         
         public SerializableDictionary() {}
 
@@ -39,7 +38,15 @@ namespace Extensions
         }
 
         public SerializableDictionary(SerializationInfo information, StreamingContext context)
-            : base(information,context) { }
+            : base(information, context)
+        {
+            data = (List<SerializableKeyValuePair<TKey, TValue>>)information.GetValue("data", typeof(List<SerializableKeyValuePair<TKey, TValue>>));
+        }
+        
+        public void GetObjectData(SerializationInfo si, StreamingContext ctxt)
+        {
+            si.AddValue( "data", data);
+        }
      
         public void OnBeforeSerialize()
         {
