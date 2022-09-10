@@ -13,7 +13,7 @@ namespace Wall
             area.TriggerEntered += RegisterAreaTrigger;
         }
 
-        private void RegisterAreaTrigger(Collider2D enter)
+        private void RegisterAreaTrigger(Collider enter)
         {
             Cube cube = CubeTransformGlobalDictionary.Get(enter.transform);
             if (cube != null && cube.IsFall())

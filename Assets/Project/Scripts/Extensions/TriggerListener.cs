@@ -5,15 +5,15 @@ namespace Extensions
 {
     public class TriggerListener : MonoBehaviour
     {
-        public event Action<Collider2D> TriggerEntered;
-        public event Action<Collider2D> TriggerExited;
+        public event Action<Collider> TriggerEntered;
+        public event Action<Collider> TriggerExited;
         
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             TriggerEntered?.Invoke(other);
         }
         
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit(Collider other)
         {
             TriggerExited?.Invoke(other);
         }

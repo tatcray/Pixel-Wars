@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
+﻿using System.IO;
 using Extensions;
 using UnityEngine;
 
@@ -10,7 +7,7 @@ namespace Saves
     public class DataSaveLoader
     {
         private static readonly string fileName = "savedata";
-        public static BinaryDataSave BinaryData { get; private set; } = new BinaryDataSave();
+        public static SerializableDataSave SerializableData { get; private set; } = new SerializableDataSave();
 
         public DataSaveLoader()
         {
@@ -18,7 +15,7 @@ namespace Saves
             UnityEvents.ApplicationQuit += Save;
         }
         
-        public BinaryDataSave LoadData()
+        public SerializableDataSave LoadData()
         {
             if (File.Exists(GetCombinedPath()))
             {
@@ -26,11 +23,11 @@ namespace Saves
             }
             else
             {
-                BinaryData = new BinaryDataSave();
+                SerializableData = new SerializableDataSave();
                 Save();
             }
 
-            return BinaryData;
+            return SerializableData;
         }
 
         private void Load()
@@ -38,7 +35,7 @@ namespace Saves
             Stream stream = new FileStream(GetCombinedPath(), FileMode.Open, FileAccess.ReadWrite);
             BinaryReader reader = new BinaryReader(stream);
             
-            BinaryData.Deserialize(reader);
+            SerializableData.Deserialize(reader);
             
             reader.Close();
             stream.Close();
@@ -49,7 +46,7 @@ namespace Saves
             Stream stream = new FileStream(GetCombinedPath(), FileMode.Create, FileAccess.ReadWrite);
             BinaryWriter writer = new BinaryWriter(stream);
 
-            BinaryData.Serialize(writer);
+            SerializableData.Serialize(writer);
             
             writer.Close();
             stream.Close();

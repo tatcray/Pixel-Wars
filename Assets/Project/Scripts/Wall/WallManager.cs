@@ -1,38 +1,44 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core;
 using Dependencies;
 using Extensions;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Wall
 {
     public class WallManager
     {
-        private static readonly float wallDestroyedPercentToWin = 0.95f;
+        public event Action WallSpawned;
         
+        public List<Cube> cubes => wallCubes;
+
         private CubePool cubePool;
         private List<Cube> wallCubes = new List<Cube>();
         
-        private int cubePixelsResolution;
-        private Transform wallPivot;
+        private Shader materialShader;
         private CubeConfig cubeConfig;
 
+        private Vector3 positionOffset;
         private Texture2D texture;
         private int horizontalCubesCount;
-        private int spawnedCubesCount;
         private int verticalCubesCount;
         private float cubeOffset;
+        private float wallRotationRandomRange;
 
         private int requiredMinActiveCubesToWin;
 
         public WallManager(WallConfig wallConfig)
         {
-            cubePixelsResolution = wallConfig.cubeResolution;
-            wallPivot = wallConfig.pivot;
             cubeConfig = wallConfig.cubeConfig;
-            GameEvents.CubeFalled.Event += RegisterCubeFall;
+            materialShader = wallConfig.shader;
+            cubeOffset = wallConfig.cubeOffset;
+            wallRotationRandomRange = wallConfig.yRotationRandomRange;
 
-            cubePool = new CubePool(cubeConfig);
+            positionOffset = wallConfig.pivot.position;
+            cubePool = new CubePool(wallConfig.pivot, cubeConfig);
         }
 
         public void DestroyWall()
@@ -47,20 +53,15 @@ namespace Wall
 
         public void SpawnCubes(Sprite sprite)
         {
-            cubeOffset = 0;
             texture = sprite.texture;
-        
-            int pixelsHeight = texture.height;
-            int pixelsWidth = texture.width;
 
-            horizontalCubesCount = Mathf.RoundToInt(1.0f * pixelsWidth / cubePixelsResolution);
-            verticalCubesCount = Mathf.RoundToInt(1.0f * pixelsHeight / cubePixelsResolution);
+            horizontalCubesCount = texture.width;
+            verticalCubesCount = texture.height;
 
             for (int y = 0; y < verticalCubesCount; y++)
                 SpawnHorizontalCubesLine(y);
-
-            spawnedCubesCount = wallCubes.Count;
-            CalculateActiveCubesToWin();
+            
+            WallSpawned?.Invoke();
         }
 
         private void SpawnHorizontalCubesLine(int y)
@@ -71,81 +72,54 @@ namespace Wall
 
         private void SpawnAndDrawTextureOnCube(int x, int y)
         {
-            Cube cube = cubePool.Pull();
-        
-            cube.SetDefaultPosition(new Vector3(x * cubeOffset, y * cubeOffset));
-            cube.SetSprite(CreateSprite(x, y));
-            cube.Reset();
-
-            if (cubeOffset == 0)
-                cubeOffset = cube.GetSpriteSize();
+            if (IsAreaOnSpriteEmpty(x, y))
+                return;
+            
+            Cube cube = CreateCubeAt(x, y);
             
             wallCubes.Add(cube);
         }
 
-        private Sprite CreateSprite(int x, int y)
-        {
-            Texture2D texture = CreateAdaptedTexture(x, y);
-            Rect rect = new Rect(0.0f, 0.0f, texture.width, texture.height);
-            return Sprite.Create(texture, rect, Vector2.zero, 100f);
-        }
-
         private bool IsAreaOnSpriteEmpty(int x, int y)
         {
-            bool isNotAlphaPixelFound = false;
-            int horizontalStartPixel = x * cubePixelsResolution;
-            int verticalStartPixel = y * cubePixelsResolution;
-
-            for (int vertical = 0; vertical < cubePixelsResolution; vertical++)
-            {
-                for (int horizontal = 0; horizontal < cubePixelsResolution; horizontal++)
-                {
-                    Color pixelColor = texture.GetPixel(horizontalStartPixel + horizontal, verticalStartPixel + vertical);
-                    if (pixelColor != Color.white && pixelColor.a > 0)
-                        return false;
-                }
-            }
-
-            return true;
+            Color pixelColor = texture.GetPixel(x, y);
+            return pixelColor == Color.white || pixelColor.a == 0;
         }
 
-        private Texture2D CreateAdaptedTexture(int x, int y)
+        private Material CreatePixelMaterial(int x, int y)
         {
-            Texture2D newTexture = new Texture2D(cubePixelsResolution, cubePixelsResolution);
-            int horizontalStartPixel = x * cubePixelsResolution;
-            int verticalStartPixel = y * cubePixelsResolution;
+            Material material = new Material(materialShader);
+            
+            Color pixelColor = texture.GetPixel(x, y);
+            
+            pixelColor.a = 1;
+            material.color = pixelColor;
 
-            for (int vertical = 0; vertical < cubePixelsResolution; vertical++)
-            {
-                for (int horizontal = 0; horizontal < cubePixelsResolution; horizontal++)
-                {
-                    Color pixelColor = texture.GetPixel(horizontalStartPixel + horizontal, verticalStartPixel + vertical);
-                    newTexture.SetPixel(horizontalStartPixel + horizontal, verticalStartPixel + vertical, pixelColor);
-                }
-            }
-        
-            newTexture.Apply();
-
-            return newTexture;
+            return material;
         }
 
-        private void RegisterCubeFall(Cube cube)
+        private Cube CreateCubeAt(int x, int y)
         {
-            wallCubes.Remove(cube);
-            CheckIsWallDestroyed();
+            Cube cube = cubePool.Pull();
+
+            Vector3 cubePosition = positionOffset;
+            cubePosition.x += x * cubeOffset;
+            cubePosition.y += y * cubeOffset;
+            cube.SetDefaultPosition(cubePosition);
+            
+            cube.SetDefaultRotation(GetRandomizedRotationEulers());
+            
+            cube.SetMaterial(CreatePixelMaterial(x, y));
+            cube.Reset();
+
+            return cube;
         }
 
-        private void CheckIsWallDestroyed()
+        private Vector3 GetRandomizedRotationEulers()
         {
-            if (wallCubes.Count < requiredMinActiveCubesToWin)
-            {
-                GameEvents.GameEndedByWin.Invoke();
-            }
-        }
-
-        private void CalculateActiveCubesToWin()
-        {
-            requiredMinActiveCubesToWin = Mathf.CeilToInt(spawnedCubesCount * (1 - wallDestroyedPercentToWin));
+            float randomYOffset = Random.Range(-wallRotationRandomRange, wallRotationRandomRange);
+            Vector3 rotation = new Vector3(0, 0, randomYOffset);
+            return rotation;
         }
     }
 }

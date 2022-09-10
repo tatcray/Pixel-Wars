@@ -10,8 +10,9 @@ namespace Wall
         private List<Cube> cubesPool = new List<Cube>();
         private List<Cube> createdCubes = new List<Cube>();
         private CubeConfig cubeConfig;
+        private Transform pivot;
         
-        public CubePool(CubeConfig cubeConfig, int startCount = 100)
+        public CubePool(Transform parent, CubeConfig cubeConfig, int startCount = 100)
         {
             this.cubeConfig = cubeConfig;
             
@@ -19,6 +20,8 @@ namespace Wall
             {
                 IncreasePool();
             }
+
+            pivot = parent;
         }
 
         public Cube Pull()
@@ -47,7 +50,8 @@ namespace Wall
 
         private void IncreasePool()
         {
-            GameObject cubeGameObject = GameObject.Instantiate(cubeConfig.cubePrefab);
+            GameObject cubeGameObject = GameObject.Instantiate(cubeConfig.cubePrefab, pivot);
+            cubeGameObject.transform.parent = pivot;
             
             Cube cube = new Cube(cubeGameObject, cubeConfig);
             
@@ -55,6 +59,11 @@ namespace Wall
             
             cubesPool.Add(cube);
             createdCubes.Add(cube);
+
+            if (cubeGameObject.transform.parent != pivot)
+            {
+                Debug.Log("wtf");
+            }
         }
     }
 }

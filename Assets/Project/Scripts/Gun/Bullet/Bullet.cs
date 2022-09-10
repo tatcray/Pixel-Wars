@@ -61,8 +61,13 @@ namespace Weapon
             this.radius = radius;
         }
 
-        public void SetPositionAndRotation(Vector3 position, Quaternion quaternion)
+        public void SetPositionAndRotation(Vector3 position, Vector3 rotation)
         {
+            position.z = 0;
+
+            rotation.y = 90;
+            rotation.z = 0;
+            Quaternion quaternion = Quaternion.Euler(rotation);
             transform.SetPositionAndRotation(position, quaternion);
         }
 
@@ -105,7 +110,7 @@ namespace Weapon
 
         private bool TryRegisterHit()
         {
-            if (Physics2D.Linecast(previousPosition, transform.position, registerLayer))
+            if (Physics.Linecast(previousPosition, transform.position, registerLayer))
             {
                 DamageCubesAround();
                 return true;
@@ -117,9 +122,12 @@ namespace Weapon
 
         private void DamageCubesAround()
         {
-            Collider2D[] registeredColliders = Physics2D.OverlapCircleAll(transform.position, radius, registerLayer);
+            Collider[] registeredColliders = Physics.OverlapSphere(transform.position, radius, registerLayer);
             foreach (var collider in registeredColliders)
             {
+                if (!isActive)
+                    return;
+                
                 Cube cube = CubeTransformGlobalDictionary.Get(collider.transform);
                 
                 if (cube != null && cube.IsHittable())

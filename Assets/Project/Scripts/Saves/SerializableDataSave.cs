@@ -5,8 +5,7 @@ using Upgrades;
 
 namespace Saves
 {
-    [Serializable]
-    public class BinaryDataSave
+    public class SerializableDataSave
     {
         public ObservableSerializedObject<int> wallIndex = new ObservableSerializedObject<int>();
         public ObservableSerializedObject<int> money = new ObservableSerializedObject<int>();

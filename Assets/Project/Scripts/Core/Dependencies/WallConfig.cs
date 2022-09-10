@@ -10,8 +10,10 @@ namespace Dependencies
     public class WallConfig
     {
         public List<Sprite> sprites;
-        public int cubeResolution;
         public Transform pivot;
+        public Shader shader;
+        public float cubeOffset;
+        public float yRotationRandomRange;
         public CubeConfig cubeConfig;
         public TriggerListener cubeConvertArea;
     }

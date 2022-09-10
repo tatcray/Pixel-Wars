@@ -13,11 +13,13 @@ namespace Core
         [SerializeField]
         private DependenciesData dependencies;
         [SerializeField]
-        private BinaryDataSave save;
+        private SerializableDataSave save;
         
         private int loadedWallIndex;
         private WallManager wallManager;
         private Crosshair crosshair;
+        private CameraCornerFollower cornerFollower;
+        private WallDestroyingObserver wallDestroyingObserver;
         private WeaponManager weaponManager;
         
         private void Start()
@@ -45,18 +47,19 @@ namespace Core
         private void InitializeWeapon()
         {
             weaponManager = new WeaponManager(dependencies.weaponReferences, crosshair);
-            weaponManager.LoadWeapon(WeaponType.Glock, new WeaponConfig() {ammo = 10, fireRate = 0.6f, radius = 0.5f, damage = 12f});
+            weaponManager.LoadWeapon(WeaponType.Glock, new WeaponConfig() {ammo = 10, fireRate = 0.6f, radius = 2f, damage = 15f});
         }
 
         private void InitializeCamera()
         {
-            CameraCornerFollower cornerFollower = new CameraCornerFollower(dependencies.cameraDependencies);
-            GameEvents.CubeFalled.Event += cube => cornerFollower.TrySetNewCorner(cube.GetPosition());
+            cornerFollower = new CameraCornerFollower(dependencies.cameraDependencies);
+            cornerFollower.SaveCurrentPositionAsDefault();
         }
 
         private void InitializeCubes()
         {
             wallManager = new WallManager(dependencies.wallConfig);
+            wallDestroyingObserver = new WallDestroyingObserver(wallManager);
             
             save.wallIndex.DataChanged += newWallIndex =>
             {
@@ -66,13 +69,19 @@ namespace Core
             
             LoadWallFromSave();
 
-            CubeMoneyConvertArea convertArea =
-                new CubeMoneyConvertArea(save.money, dependencies.wallConfig.cubeConvertArea);
+            new CubeMoneyConvertArea(save.money, dependencies.wallConfig.cubeConvertArea);
         }
 
         private void InitializeGameEvents()
         {
             GameEvents.GameEndedByWin.Event += () => save.wallIndex.Value++;
+            GameEvents.CubeFalled.Event += cube => cornerFollower.TrySetNewCorner(cube.GetPosition());
+            GameEvents.GameEndedByLose.Event += cornerFollower.ResetToDefaultPosition;
+            GameEvents.GameEndedByWin.Event += cornerFollower.ResetToDefaultPosition;
+            
+            GameEvents.CubeFalled.Event += wallDestroyingObserver.RegisterCubeFall;
+            GameEvents.GameEndedByLose.Event += wallDestroyingObserver.ResetActiveCubesCount;
+            GameEvents.GameEndedByWin.Event += wallDestroyingObserver.ResetActiveCubesCount;
         }
 
         private void LoadWallFromSave()

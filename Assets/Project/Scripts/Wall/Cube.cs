@@ -10,22 +10,23 @@ namespace Wall
         private UnityLayer activeLayer;
         private UnityLayer fallLayer;
         
-        private Rigidbody2D rigidbody;
+        private Rigidbody rigidbody;
         private Transform transform;
         private GameObject gameObject;
-        private SpriteRenderer spriteRenderer;
+        private MeshRenderer meshRenderer;
         
         private float defaultHealth;
         private float health;
         private bool isFall;
+        private Quaternion savedRotation;
         private Vector3 savedPosition;
         
         public Cube(GameObject gameObject, CubeConfig cubeConfig)
         {
             this.gameObject = gameObject;
             transform = gameObject.transform;
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            rigidbody = gameObject.GetComponent<Rigidbody2D>();
+            meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            rigidbody = gameObject.GetComponent<Rigidbody>();
 
             defaultHealth = cubeConfig.defaultHealth;
             activeLayer = cubeConfig.activeCubeLayer;
@@ -47,19 +48,15 @@ namespace Wall
             return transform.position;
         }
 
-        public float GetSpriteSize()
+        public void SetMaterial(Material material)
         {
-            return spriteRenderer.sprite.bounds.size.x;
-        }
-
-        public void SetSprite(Sprite sprite)
-        {
-            spriteRenderer.sprite = sprite;
+            meshRenderer.material = material;
         }
     
         public void Reset()
         {
             transform.position = savedPosition;
+            transform.rotation = savedRotation;
             health = defaultHealth;
             
             SetActive();
@@ -87,12 +84,17 @@ namespace Wall
 
         public void AddForce(Vector3 force)
         {
-            rigidbody.AddForce(force, ForceMode2D.Force);
+            rigidbody.AddForce(force, ForceMode.Impulse);
         }
     
         public void SetDefaultPosition(Vector3 position)
         {
             savedPosition = position;
+        }
+
+        public void SetDefaultRotation(Vector3 rotation)
+        {
+            savedRotation = Quaternion.Euler(rotation);
         }
 
         private void SetFall()
