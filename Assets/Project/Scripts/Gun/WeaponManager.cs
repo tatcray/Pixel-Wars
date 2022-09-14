@@ -14,16 +14,17 @@ namespace Weapon
 
         private GameObject bulletPrefab;
         private Weapon currentWeapon;
+        private GlobalWeaponCubeHitParticles currentHitParticles;
         
         public WeaponManager(WeaponReferences references, Crosshair crosshair)
         {
             weaponDependencies = references.weapons;
             
             AddWeaponToDictionary(WeaponType.Glock);
-            // AddWeaponToDictionary(WeaponType.Deagle);
-            // AddWeaponToDictionary(WeaponType.Nova);
-            // AddWeaponToDictionary(WeaponType.Mp7);
-            // AddWeaponToDictionary(WeaponType.P90);
+            AddWeaponToDictionary(WeaponType.Deagle);
+            AddWeaponToDictionary(WeaponType.Nova);
+            AddWeaponToDictionary(WeaponType.Mp7);
+            AddWeaponToDictionary(WeaponType.P90);
             
             crosshair.ShootStarted += () => currentWeapon.StartShoot();
             crosshair.ShootStopped += () => currentWeapon.StopShoot();
@@ -31,6 +32,8 @@ namespace Weapon
 
             GameEvents.GameEndedByLose.Event += () => currentWeapon?.Reset();
             GameEvents.GameEndedByWin.Event += () => currentWeapon?.Reset();
+
+            new GlobalWeaponCubeHitParticles(references.hitEffectPrefab);
         }
         
         public void LoadWeapon(WeaponType type, WeaponConfig config)
@@ -48,7 +51,9 @@ namespace Weapon
 
         private void AddWeaponToDictionary(WeaponType type)
         {
-            cachedWeapons.Add(type, new Weapon(weaponDependencies[type]));
+            WeaponDependency weaponDependency = weaponDependencies[type];
+            
+            cachedWeapons.Add(type, new Weapon(weaponDependency));
         }
     }
 }

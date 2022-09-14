@@ -15,6 +15,7 @@ namespace Controller
         private float dragSpeed;
         private RectTransform transform;
         private RectTransform canvasRect;
+        private Canvas canvas;
         private Camera camera;
         
         public Crosshair(CrosshairReferences references)
@@ -22,6 +23,7 @@ namespace Controller
             this.references = references;
             transform = references.crosshairTransform;
             canvasRect = references.crosshairCanvasRect;
+            canvas = canvasRect.GetComponent<Canvas>();
             dragSpeed = references.crosshairDragSpeed;
             camera = this.references.camera;
             
@@ -32,13 +34,12 @@ namespace Controller
 
         private void MoveCrosshair(Vector2 direction)
         {
-            Vector2 anchoredPosition = transform.anchoredPosition + direction * dragSpeed;
+            Vector2 anchoredPosition = transform.anchoredPosition + direction / canvas.scaleFactor;
             anchoredPosition.x = Mathf.Clamp(anchoredPosition.x, 0, canvasRect.sizeDelta.x);
             anchoredPosition.y = Mathf.Clamp(anchoredPosition.y, 0, canvasRect.sizeDelta.y);
             
             transform.anchoredPosition = anchoredPosition;
             
-            Debug.DrawLine(transform.position, GetWorldPosition());
             PositionUpdated?.Invoke(GetWorldPosition());
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using DG.Tweening;
 using Extensions;
 using UnityEngine;
 
@@ -13,13 +14,21 @@ namespace Wall
         private Rigidbody rigidbody;
         private Transform transform;
         private GameObject gameObject;
+        private Material material;
         private MeshRenderer meshRenderer;
         
         private float defaultHealth;
         private float health;
         private bool isFall;
+        private float fadeTime;
+        private float idleTime;
         private Quaternion savedRotation;
+        private Color originalColor;
+        private Color damagedColor;
         private Vector3 savedPosition;
+        private float colorDamagePercent;
+
+        private Sequence damageAnimationSequence;
         
         public Cube(GameObject gameObject, CubeConfig cubeConfig)
         {
@@ -27,6 +36,11 @@ namespace Wall
             transform = gameObject.transform;
             meshRenderer = gameObject.GetComponent<MeshRenderer>();
             rigidbody = gameObject.GetComponent<Rigidbody>();
+
+            fadeTime = cubeConfig.damageFadeTime;
+            idleTime = cubeConfig.damageIdleTime;
+            damagedColor = cubeConfig.targetDamageColor;
+            colorDamagePercent = cubeConfig.playingDamageColorPercent;
 
             defaultHealth = cubeConfig.defaultHealth;
             activeLayer = cubeConfig.activeCubeLayer;
@@ -50,6 +64,8 @@ namespace Wall
 
         public void SetMaterial(Material material)
         {
+            this.material = material;
+            originalColor = material.color;
             meshRenderer.material = material;
         }
     
@@ -79,12 +95,13 @@ namespace Wall
             if (health < 0)
             {
                 SetFall();
+                PlayDeathAnimation();
             }
         }
 
-        public void AddForce(Vector3 force)
+        public void AddForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
         {
-            rigidbody.AddForce(force, ForceMode.Impulse);
+            rigidbody.AddForce(force, mode);
         }
     
         public void SetDefaultPosition(Vector3 position)
@@ -122,6 +139,18 @@ namespace Wall
             gameObject.layer = fallLayer.LayerIndex;
             isFall = false;
             rigidbody.isKinematic = true;
+        }
+
+        private void PlayDeathAnimation()
+        {
+            if(damageAnimationSequence != null)
+                damageAnimationSequence.Kill(true);
+
+            Color targetColor = Color.Lerp(originalColor, damagedColor, colorDamagePercent);
+            damageAnimationSequence = DOTween.Sequence()
+                .Append(material.DOColor(targetColor, fadeTime))
+                .AppendInterval(idleTime)
+                .Append(material.DOColor(originalColor, fadeTime));
         }
     }
 }

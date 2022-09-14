@@ -9,6 +9,7 @@ namespace Dependencies
     public class WeaponReferences
     {
         public SerializableDictionary<WeaponType, WeaponDependency> weapons;
+        public ParticleSystem hitEffectPrefab;
     }
     
     [Serializable]

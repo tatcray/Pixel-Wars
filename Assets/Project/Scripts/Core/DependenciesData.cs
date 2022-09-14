@@ -10,4 +10,6 @@ public class DependenciesData
     public WeaponReferences weaponReferences;
     public CrosshairReferences crosshairReferences;
     public CameraDependencies cameraDependencies;
+    public ConverterDependencies converterDependencies;
+    public UIDependencies uiDependencies;
 }

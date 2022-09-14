@@ -4,32 +4,35 @@ using UnityEngine.EventSystems;
 
 namespace Controller
 {
-    public class ObservableDynamicJoystick : DynamicJoystick
+    public class ObservableDynamicJoystick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
         public Action<Vector2> JoystickMoveUpdate;
         public Action JoystickActivated;
         public Action JoystickDisabled;
 
         private bool isActivated;
+        private Canvas canvas;
 
-        private void Update()
+        private void Awake()
         {
-            if (isActivated)
-                JoystickMoveUpdate?.Invoke(Direction);
+            canvas = GetComponent<Canvas>();
         }
 
-        public override void OnPointerDown(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
-            base.OnPointerDown(eventData);
             isActivated = true;
             JoystickActivated?.Invoke();
         }
 
-        public override void OnPointerUp(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
-            base.OnPointerUp(eventData);
             isActivated = false;
             JoystickDisabled?.Invoke();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            JoystickMoveUpdate(eventData.delta);
         }
     }
 }

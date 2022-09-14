@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Extensions;
 using UnityEngine;
 using Wall;
@@ -13,7 +14,6 @@ namespace Weapon
 
         private bool isActive;
         private Transform transform;
-        private ParticleSystem hitEffect;
 
         private float speed;
         private float activatedTime;
@@ -30,14 +30,12 @@ namespace Weapon
         {
             gameObject = GameObject.Instantiate(config.prefab, parent);
             gameObject.SetActive(false);
-
-            hitEffect = GameObject.Instantiate(config.hitEffectPrefab.gameObject, parent)
-                .GetComponent<ParticleSystem>();
             
             transform = gameObject.transform;
 
             speed = config.speed;
             lifeTime = config.lifeTime;
+            damage = config.damage;
             registerLayer = config.registerLayer;
             physicsForce = config.hitPhysicsForce;
         }
@@ -55,9 +53,8 @@ namespace Weapon
             activatedTime = 0;
         }
 
-        public void SetDamageAndRadius(float damage, float radius)
+        public void SetRadius(float radius)
         {
-            this.damage = damage;
             this.radius = radius;
         }
 
@@ -102,8 +99,6 @@ namespace Weapon
 
             if (previousPosition != Vector3.negativeInfinity && TryRegisterHit())
             {
-                hitEffect.transform.position = transform.position;
-                hitEffect.Play(true);
                 Deactivate();
             }
         }
@@ -113,6 +108,8 @@ namespace Weapon
             if (Physics.Linecast(previousPosition, transform.position, registerLayer))
             {
                 DamageCubesAround();
+                
+                GlobalWeaponCubeHitParticles.PlayCubeHitParticles(transform.position);
                 return true;
             }
 
@@ -129,9 +126,11 @@ namespace Weapon
                     return;
                 
                 Cube cube = CubeTransformGlobalDictionary.Get(collider.transform);
-                
+
                 if (cube != null && cube.IsHittable())
+                {
                     DamageCube(cube);
+                }
             }
         }
 
@@ -144,7 +143,10 @@ namespace Weapon
         private void DamageCube(Cube cube)
         {
             float damage = CalculateDamage(cube);
-            cube.TakeDamage(damage);
+            if (damage > 0)
+            {
+                cube.TakeDamage(damage);
+            }
             
             if (cube.IsFall())
                 AddForceOnCube(cube);

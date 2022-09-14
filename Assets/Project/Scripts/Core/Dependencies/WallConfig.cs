@@ -15,6 +15,5 @@ namespace Dependencies
         public float cubeOffset;
         public float yRotationRandomRange;
         public CubeConfig cubeConfig;
-        public TriggerListener cubeConvertArea;
     }
 }

@@ -11,5 +11,9 @@ namespace Wall
         public float defaultHealth;
         public UnityLayer fallCubeLayer;
         public UnityLayer activeCubeLayer;
+        public float damageFadeTime;
+        public float damageIdleTime;
+        public Color targetDamageColor;
+        public float playingDamageColorPercent;
     }
 }

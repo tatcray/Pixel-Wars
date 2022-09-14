@@ -3,6 +3,7 @@ using Extensions;
 using Saves;
 using Unity.Collections;
 using UnityEngine;
+using Upgrades;
 using Wall;
 using Weapon;
 
@@ -18,6 +19,7 @@ namespace Core
         private int loadedWallIndex;
         private WallManager wallManager;
         private Crosshair crosshair;
+        private UpgradeSystem upgradeSystem;
         private CameraCornerFollower cornerFollower;
         private WallDestroyingObserver wallDestroyingObserver;
         private WeaponManager weaponManager;
@@ -28,6 +30,7 @@ namespace Core
             InitializeCubes();
             InitializeCrosshair();
             InitializeWeapon();
+            InitializeUpgrades();
             InitializeCamera();
             
             InitializeGameEvents();
@@ -47,7 +50,11 @@ namespace Core
         private void InitializeWeapon()
         {
             weaponManager = new WeaponManager(dependencies.weaponReferences, crosshair);
-            weaponManager.LoadWeapon(WeaponType.Glock, new WeaponConfig() {ammo = 10, fireRate = 0.6f, radius = 2f, damage = 15f});
+        }
+
+        private void InitializeUpgrades()
+        {
+            upgradeSystem = new UpgradeSystem(dependencies.upgradesData, weaponManager, save.upgrades);
         }
 
         private void InitializeCamera()
@@ -69,7 +76,7 @@ namespace Core
             
             LoadWallFromSave();
 
-            new CubeMoneyConvertArea(save.money, dependencies.wallConfig.cubeConvertArea);
+            new CubeMoneyConvertArea(save.money, dependencies.converterDependencies);
         }
 
         private void InitializeGameEvents()

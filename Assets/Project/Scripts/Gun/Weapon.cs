@@ -95,7 +95,7 @@ namespace Weapon
             
             Bullet bullet = bulletPool.Pull();
             bullet.SetPositionAndRotation(bulletReleaseAnchor.position, bulletReleaseAnchor.rotation.eulerAngles);
-            bullet.SetDamageAndRadius(damage, radius);
+            bullet.SetRadius(radius);
             bullet.Activate();
         }
 

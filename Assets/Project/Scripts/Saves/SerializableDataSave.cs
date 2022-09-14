@@ -5,12 +5,21 @@ using Upgrades;
 
 namespace Saves
 {
+    [Serializable]
     public class SerializableDataSave
     {
         public ObservableSerializedObject<int> wallIndex = new ObservableSerializedObject<int>();
         public ObservableSerializedObject<int> money = new ObservableSerializedObject<int>();
         public SerializableDictionary<UpgradeType, int> upgrades = new SerializableDictionary<UpgradeType, int>();
 
+        public SerializableDataSave()
+        {
+            upgrades[UpgradeType.Weapon] = 0;
+            upgrades[UpgradeType.Ammo] = 0;
+            upgrades[UpgradeType.FireRate] = 0;
+            upgrades[UpgradeType.Radius] = 0;
+        }
+        
         public void Serialize(BinaryWriter writer)
         {
             writer.Write(wallIndex.Value);

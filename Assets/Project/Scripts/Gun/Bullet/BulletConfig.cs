@@ -7,7 +7,7 @@ namespace Weapon
     [Serializable]
     public class BulletConfig
     {
-        public ParticleSystem hitEffectPrefab;
+        public float damage;
         public float lifeTime;
         public float speed;
         public GameObject prefab;
