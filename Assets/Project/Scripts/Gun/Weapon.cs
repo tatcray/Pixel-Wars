@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Dependencies;
 using Extensions;
@@ -7,6 +8,8 @@ namespace Weapon
 {
     public class Weapon
     {
+        public event Action Shooted;
+        
         private Transform transform;
         private GameObject gameObject;
         private Coroutine shootCoroutine;
@@ -21,9 +24,6 @@ namespace Weapon
         private ParticleSystem bulletReleaseParticles;
         private Animation shootAnimation;
         private Vector3 slaveReleaseForce;
-        
-        private int defaultAmmo;
-        private int currentAmmo;
         
         private float damage;
         private float radius;
@@ -50,12 +50,10 @@ namespace Weapon
             shootWaitCoroutine = new WaitForSeconds(config.fireRate);
             damage = config.damage;
             radius = config.radius;
-            defaultAmmo = config.ammo;
         }
 
         public void Reset()
         {
-            currentAmmo = defaultAmmo;
             bulletPool.DeactivateAllActiveBullets();
         }
 
@@ -118,6 +116,7 @@ namespace Weapon
             {
                 yield return shootWaitCoroutine;
                 shootAnimation.Play();
+                Shooted?.Invoke();
                 ReleaseBullet();
                 ReleaseSlave();
             }

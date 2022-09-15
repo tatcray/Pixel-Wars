@@ -1,23 +1,27 @@
-﻿using UnityEngine;
+﻿using Dependencies;
+using Extensions;
+using Saves;
 using Upgrades;
 
 namespace UI
 {
-    public class UpgradeButton : MonoBehaviour
+    public class UpgradeButton
     {
-        [SerializeField]
-        private UpgradeType upgradeType;
-
+        private UpgradeButtonDependencies upgradeButtonDependencies;
         private UpgradeSystem upgradeSystem;
-
-        public void Initialize(UpgradeSystem upgradeSystem)
+        private ObservableSerializedObject<int> money;
+        public UpgradeButton(UpgradeButtonDependencies dependencies, UpgradeSystem upgradeSystem)
         {
             this.upgradeSystem = upgradeSystem;
+            this.upgradeButtonDependencies = dependencies;
+            money = DataSaveLoader.SerializableData.money;
+            
+            dependencies.
         }
 
-        public void Upgrade()
+        private void Upgrade()
         {
-            upgradeSystem.Upgrade(upgradeType);
+            
         }
     }
 }

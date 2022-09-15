@@ -12,4 +12,5 @@ public class DependenciesData
     public CameraDependencies cameraDependencies;
     public ConverterDependencies converterDependencies;
     public UIDependencies uiDependencies;
+    public EnvironmentDependencies environmentDependencies;
 }

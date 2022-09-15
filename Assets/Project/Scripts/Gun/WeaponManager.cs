@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Controller;
 using Core;
 using Dependencies;
@@ -9,11 +10,14 @@ namespace Weapon
 {
     public class WeaponManager
     {
+        public ObservableSerializedObject<int> ammo { get; } = new ObservableSerializedObject<int>();
+
         private Dictionary<WeaponType, Weapon> cachedWeapons = new Dictionary<WeaponType, Weapon>();
         private Dictionary<WeaponType, WeaponDependency> weaponDependencies;
 
         private GameObject bulletPrefab;
         private Weapon currentWeapon;
+        private int defaultAmmo;
         private GlobalWeaponCubeHitParticles currentHitParticles;
         
         public WeaponManager(WeaponReferences references, Crosshair crosshair)
@@ -25,13 +29,12 @@ namespace Weapon
             AddWeaponToDictionary(WeaponType.Nova);
             AddWeaponToDictionary(WeaponType.Mp7);
             AddWeaponToDictionary(WeaponType.P90);
-            
-            crosshair.ShootStarted += () => currentWeapon.StartShoot();
-            crosshair.ShootStopped += () => currentWeapon.StopShoot();
+
+            crosshair.ShootStarted += WeaponStartShoot;
+            crosshair.ShootStopped += WeaponStopShoot;
             crosshair.PositionUpdated += newPosition => currentWeapon.LookAt(newPosition);
 
-            GameEvents.GameEndedByLose.Event += () => currentWeapon?.Reset();
-            GameEvents.GameEndedByWin.Event += () => currentWeapon?.Reset();
+            GameEvents.GameStarted.Event += ResetWeapon;
 
             new GlobalWeaponCubeHitParticles(references.hitEffectPrefab);
         }
@@ -47,6 +50,23 @@ namespace Weapon
             newWeapon.SetConfig(config);
 
             currentWeapon = newWeapon;
+            defaultAmmo = config.ammo;
+        }
+
+        private void WeaponStartShoot()
+        {
+            currentWeapon.StartShoot();
+        }
+
+        private void WeaponStopShoot()
+        {
+            currentWeapon.StopShoot();
+        }
+
+        private void ResetWeapon()
+        {
+            currentWeapon?.Reset();
+            ammo.Value = defaultAmmo;
         }
 
         private void AddWeaponToDictionary(WeaponType type)

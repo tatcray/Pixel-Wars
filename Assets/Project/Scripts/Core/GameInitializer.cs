@@ -1,6 +1,8 @@
 ﻿using Controller;
+using Environment;
 using Extensions;
 using Saves;
+using UI;
 using Unity.Collections;
 using UnityEngine;
 using Upgrades;
@@ -9,7 +11,7 @@ using Weapon;
 
 namespace Core
 {
-    public class GameIntializer : MonoBehaviour
+    public class GameInitializer : MonoBehaviour
     {
         [SerializeField]
         private DependenciesData dependencies;
@@ -23,17 +25,27 @@ namespace Core
         private CameraCornerFollower cornerFollower;
         private WallDestroyingObserver wallDestroyingObserver;
         private WeaponManager weaponManager;
+        private GameScreen gameScreen;
         
         private void Start()
         {
+            InitializeEnvironment();
+            
             InitializeSaves();
             InitializeCubes();
             InitializeCrosshair();
             InitializeWeapon();
             InitializeUpgrades();
             InitializeCamera();
+
+            InitializeUI();
             
             InitializeGameEvents();
+        }
+
+        private void InitializeEnvironment()
+        {
+            new CloudsManager(dependencies.environmentDependencies);
         }
 
         private void InitializeSaves()
@@ -77,6 +89,17 @@ namespace Core
             LoadWallFromSave();
 
             new CubeMoneyConvertArea(save.money, dependencies.converterDependencies);
+        }
+
+        private void InitializeUI()
+        {
+            gameScreen = new GameScreen(dependencies.uiDependencies);
+
+            weaponManager.ammo.DataChanged += gameScreen.SetAmmo;
+            save.money.DataChanged += gameScreen.SetMoney;
+            
+            gameScreen.SetMoney(save.money.Value);
+            gameScreen.SetAmmo(weaponManager.ammo.Value);
         }
 
         private void InitializeGameEvents()
