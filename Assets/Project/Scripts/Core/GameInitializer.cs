@@ -104,9 +104,9 @@ namespace Core
 
             preLoseGameScreen = new PreLoseGameScreen(dependencies.uiDependencies);
             AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
-            ammoTracker.AmmoEnded += preLoseGameScreen.ShowScreen;
+            ammoTracker.AmmoEnded += preLoseGameScreen.Show;
         }
-
+ 
         private void InitializeGameEvents()
         {
             GameEvents.GameEndedByWin.Event += () => save.wallIndex.Value++;

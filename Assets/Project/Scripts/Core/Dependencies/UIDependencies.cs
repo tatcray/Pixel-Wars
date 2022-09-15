@@ -17,6 +17,11 @@ namespace Dependencies
         public TextMeshProUGUI money;
         public TextMeshProUGUI ammo;
         public Canvas crosshairCanvas;
+
+        public Canvas endGameCanvas;
+        public Button viewAdButton;
+        public Button noThanksButton;
+        public TextMeshProUGUI collectedMoneyOnRoundMultiplyText;
     }
 
     [Serializable]
@@ -29,5 +34,6 @@ namespace Dependencies
         public Image icon;
         public Sprite activeUpgradeBackground;
         public Sprite disableUpgradeBackground;
+        public Image costIcon;
     }
 }

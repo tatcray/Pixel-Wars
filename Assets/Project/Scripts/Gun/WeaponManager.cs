@@ -51,8 +51,10 @@ namespace Weapon
                 currentWeapon.Disable();
             }
             
+            if (currentWeapon != newWeapon)
+                newWeapon.Shooted += RegisterAmmoConsumption;
+            
             newWeapon.Activate();
-            newWeapon.Shooted += RegisterAmmoConsumption;
             newWeapon.SetConfig(config);
 
             currentWeapon = newWeapon;

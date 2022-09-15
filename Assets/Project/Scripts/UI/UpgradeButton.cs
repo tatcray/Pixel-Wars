@@ -50,7 +50,14 @@ namespace UI
                 MakeAvailable();
             }
             else
-                MakeUnavailable();
+            {
+                if (upgradeSystem.CanBeUpgraded(upgradeType))
+                {
+                  upgradeButtonDependencies.costIcon.enabled = false;
+                  upgradeButtonDependencies.cost.text = "";
+                }
+                MakeUnavailable();  
+            }
         }
         
         private void SetCost(int money)
@@ -69,6 +76,7 @@ namespace UI
         {
             upgradeButtonDependencies.upgradeBackground.sprite = upgradeButtonDependencies.activeUpgradeBackground;
             upgradeButtonDependencies.button.enabled = true;
+            upgradeButtonDependencies.costIcon.enabled = true;
             isEnabled = true;
         }
 
