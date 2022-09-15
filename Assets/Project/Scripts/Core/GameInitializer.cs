@@ -26,6 +26,7 @@ namespace Core
         private WallDestroyingObserver wallDestroyingObserver;
         private WeaponManager weaponManager;
         private GameScreen gameScreen;
+        private PreLoseGameScreen preLoseGameScreen;
         
         private void Start()
         {
@@ -93,13 +94,17 @@ namespace Core
 
         private void InitializeUI()
         {
-            gameScreen = new GameScreen(dependencies.uiDependencies);
+            gameScreen = new GameScreen(dependencies.uiDependencies, upgradeSystem);
 
             weaponManager.ammo.DataChanged += gameScreen.SetAmmo;
             save.money.DataChanged += gameScreen.SetMoney;
             
             gameScreen.SetMoney(save.money.Value);
             gameScreen.SetAmmo(weaponManager.ammo.Value);
+
+            preLoseGameScreen = new PreLoseGameScreen(dependencies.uiDependencies);
+            AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
+            ammoTracker.AmmoEnded += preLoseGameScreen.ShowScreen;
         }
 
         private void InitializeGameEvents()

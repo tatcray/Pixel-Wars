@@ -34,28 +34,36 @@ namespace Weapon
             crosshair.ShootStopped += WeaponStopShoot;
             crosshair.PositionUpdated += newPosition => currentWeapon.LookAt(newPosition);
 
+            GameEvents.GameEndedByLose.Event += ResetWeapon;
+            GameEvents.GameEndedByWin.Event += ResetWeapon;
             GameEvents.GameStarted.Event += ResetWeapon;
-
+            
             new GlobalWeaponCubeHitParticles(references.hitEffectPrefab);
         }
         
         public void LoadWeapon(WeaponType type, WeaponConfig config)
         {
             Weapon newWeapon = cachedWeapons[type];
-            
+
             if (currentWeapon != null && currentWeapon != newWeapon)
+            {
+                currentWeapon.Shooted -= RegisterAmmoConsumption;
                 currentWeapon.Disable();
+            }
             
             newWeapon.Activate();
+            newWeapon.Shooted += RegisterAmmoConsumption;
             newWeapon.SetConfig(config);
 
             currentWeapon = newWeapon;
             defaultAmmo = config.ammo;
+            ammo.Value = defaultAmmo;
         }
 
         private void WeaponStartShoot()
         {
-            currentWeapon.StartShoot();
+            if (ammo.Value > 0)
+                currentWeapon.StartShoot();
         }
 
         private void WeaponStopShoot()
@@ -65,8 +73,17 @@ namespace Weapon
 
         private void ResetWeapon()
         {
-            currentWeapon?.Reset();
+            currentWeapon.Reset();
+            currentWeapon.StopShoot();
             ammo.Value = defaultAmmo;
+        }
+
+        private void RegisterAmmoConsumption()
+        {
+            ammo.Value--;
+            
+            if (ammo.Value <= 0)
+                currentWeapon.StopShoot();
         }
 
         private void AddWeaponToDictionary(WeaponType type)

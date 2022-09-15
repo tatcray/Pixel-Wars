@@ -11,19 +11,22 @@ namespace UI
     public class GameScreen
     {
         private UIDependencies dependencies;
+        private UpgradeSystem upgradeSystem;
         private List<UpgradeButton> upgradeButtons = new List<UpgradeButton>();
         
         public GameScreen(UIDependencies dependencies, UpgradeSystem upgradeSystem)
         {
             this.dependencies = dependencies;
+            this.upgradeSystem = upgradeSystem;
 
             dependencies.playButton.onClick.AddListener(StartPlayMode);
-            
-            foreach (var button in dependencies.upgradeButtons)
-                upgradeButtons.Add(new UpgradeButton(button, upgradeSystem));
 
-            GameEvents.GameEndedByLose.Event += ShowMenuButtons;
-            GameEvents.GameEndedByWin.Event += ShowMenuButtons;
+            CreateButtons();
+
+            GameEvents.GameEndedByLose.Event += StartMenuMode;
+            GameEvents.GameEndedByWin.Event += StartMenuMode;
+            
+            StartMenuMode();
         }
 
         public void SetMoney(int money)
@@ -34,6 +37,17 @@ namespace UI
         public void SetAmmo(int ammo)
         {
             dependencies.ammo.text = ammo.ToString();
+        }
+
+        private void CreateButtons()
+        {
+            foreach (var button in dependencies.upgradeButtons)
+            {
+                if (button.upgradeType == UpgradeType.Weapon)
+                    upgradeButtons.Add(new WeaponUpgradeButton(dependencies.weaponSprites, button, upgradeSystem));
+                else
+                    upgradeButtons.Add(new UpgradeButton(button, upgradeSystem));
+            }
         }
 
         private void ShowCrosshair()
@@ -62,6 +76,9 @@ namespace UI
         {
             foreach (var button in dependencies.upgradeButtons)
                 button.button.gameObject.SetActive(false);
+
+            foreach (var button in upgradeButtons)
+                button.Hide();
             
             dependencies.playButton.gameObject.SetActive(false);
         }
@@ -71,6 +88,9 @@ namespace UI
             foreach (var button in dependencies.upgradeButtons)
                 button.button.gameObject.SetActive(true);
             
+            foreach (var button in upgradeButtons)
+                button.Show();
+            
             dependencies.playButton.gameObject.SetActive(true);
         }
 
@@ -78,6 +98,8 @@ namespace UI
         {
             HideMenuButtons();
             ShowCrosshair();
+            
+            GameEvents.GameStarted.Invoke();
         }
 
         private void StartMenuMode()

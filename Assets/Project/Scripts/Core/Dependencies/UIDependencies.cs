@@ -12,6 +12,7 @@ namespace Dependencies
     public class UIDependencies
     {
         public List<UpgradeButtonDependencies> upgradeButtons;
+        public List<Sprite> weaponSprites;
         public Button playButton;
         public TextMeshProUGUI money;
         public TextMeshProUGUI ammo;

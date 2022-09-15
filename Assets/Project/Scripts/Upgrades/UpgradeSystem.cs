@@ -64,7 +64,7 @@ namespace Upgrades
 
         public bool CanBeUpgraded(UpgradeType type)
         {
-            int currentLvl = GetCurrentLvl(type);
+            int currentLvl = GetLvl(type);
             
             switch (type)
             {
@@ -81,7 +81,11 @@ namespace Upgrades
                     return default;
             }
         }
-        
+        public int GetLvl(UpgradeType upgradeType)
+        {
+            return upgrades[upgradeType];
+        }
+
         private void SendNewConfigToWeaponManager()
         {
             WeaponConfig config = new WeaponConfig();
@@ -93,10 +97,6 @@ namespace Upgrades
             weaponManager.LoadWeapon(GetCurrentWeaponType(), config);
         }
 
-        private int GetCurrentLvl(UpgradeType upgradeType)
-        {
-            return upgrades[upgradeType];
-        }
 
         private WeaponType GetCurrentWeaponType()
         {

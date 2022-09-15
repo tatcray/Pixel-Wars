@@ -304,6 +304,17 @@ Transform:
   m_Father: {fileID: 374632828}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &80591471 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8723486739152861458, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+  m_PrefabInstance: {fileID: 8416051279386737665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &136010334
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +413,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1.0000001, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &148897323 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3429779601332000135, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+  m_PrefabInstance: {fileID: 8416051279386737665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &177784580
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalRotation.x
@@ -750,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalRotation.z
@@ -762,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0dce495bd1e87d48ba92b378b8319c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1302,6 +1324,17 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!114 &693647853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2016933753718204015, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+  m_PrefabInstance: {fileID: 8416051279386737665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,7 +1999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1047694180
 Transform:
   m_ObjectHideFlags: 0
@@ -2047,18 +2080,18 @@ MonoBehaviour:
     upgradesData:
       upgradesData:
       - weaponType: 0
-        weaponUpgradeCost: 0
+        weaponUpgradeCost: 50
         ammoUpgrades:
         - value: 10
-          cost: 0
+          cost: 1
         - value: 12
-          cost: 0
+          cost: 25
         - value: 14
-          cost: 0
+          cost: 34
         - value: 16
-          cost: 0
+          cost: 45
         - value: 18
-          cost: 0
+          cost: 55
         - value: 20
           cost: 0
         - value: 22
@@ -2081,13 +2114,13 @@ MonoBehaviour:
           cost: 0
         radiusUpgrade:
         - value: 1
-          cost: 0
+          cost: 13
         - value: 1.1
-          cost: 0
+          cost: 15
         - value: 1.2
-          cost: 0
+          cost: 18
         - value: 1.3
-          cost: 0
+          cost: 22
         - value: 1.4
           cost: 0
         - value: 1.5
@@ -2112,13 +2145,13 @@ MonoBehaviour:
           cost: 0
         fireRateUpgrade:
         - value: 1
-          cost: 0
+          cost: 35
         - value: 0.95
-          cost: 0
+          cost: 45
         - value: 0.9
-          cost: 0
+          cost: 55
         - value: 0.85
-          cost: 0
+          cost: 66
         - value: 0.8
           cost: 0
         - value: 0.75
@@ -2142,7 +2175,7 @@ MonoBehaviour:
         - value: 0.3
           cost: 0
       - weaponType: 1
-        weaponUpgradeCost: 0
+        weaponUpgradeCost: 25
         ammoUpgrades:
         - value: 12
           cost: 0
@@ -2663,7 +2696,7 @@ MonoBehaviour:
       - gameObject: {fileID: 4055401172577581664, guid: e5971473cb3934248a018f5c5bb1d39a, type: 3}
         convertChance: 1
         cost: 1
-      maxActiveObjects: 60
+      maxActiveObjects: 90
       convertParticles: {fileID: 1177679450630112835, guid: 0870fa15130421d4b8dc9faad24af795, type: 3}
     uiDependencies:
       upgradeButtons:
@@ -2671,21 +2704,36 @@ MonoBehaviour:
         upgradeType: 0
         cost: {fileID: 1432902710}
         upgradeBackground: {fileID: 1432902711}
+        icon: {fileID: 1049836856}
+        activeUpgradeBackground: {fileID: 21300000, guid: 482d6d1695830f14f94e2b86a5ffcf3b, type: 3}
+        disableUpgradeBackground: {fileID: 21300000, guid: 750813a9feea8ad42b58bf5baed60b2f, type: 3}
       - button: {fileID: 8416051279386737669}
         upgradeType: 1
         cost: {fileID: 1432902704}
         upgradeBackground: {fileID: 1432902705}
+        icon: {fileID: 148897323}
+        activeUpgradeBackground: {fileID: 21300000, guid: 482d6d1695830f14f94e2b86a5ffcf3b, type: 3}
+        disableUpgradeBackground: {fileID: 21300000, guid: 750813a9feea8ad42b58bf5baed60b2f, type: 3}
       - button: {fileID: 8416051279386737671}
         upgradeType: 2
         cost: {fileID: 1432902708}
         upgradeBackground: {fileID: 1432902709}
+        icon: {fileID: 693647853}
+        activeUpgradeBackground: {fileID: 21300000, guid: 482d6d1695830f14f94e2b86a5ffcf3b, type: 3}
+        disableUpgradeBackground: {fileID: 21300000, guid: 750813a9feea8ad42b58bf5baed60b2f, type: 3}
       - button: {fileID: 8416051279386737670}
         upgradeType: 3
         cost: {fileID: 1432902706}
         upgradeBackground: {fileID: 1432902707}
+        icon: {fileID: 80591471}
+        activeUpgradeBackground: {fileID: 21300000, guid: 482d6d1695830f14f94e2b86a5ffcf3b, type: 3}
+        disableUpgradeBackground: {fileID: 21300000, guid: 750813a9feea8ad42b58bf5baed60b2f, type: 3}
+      weaponSprites:
+      - {fileID: 21300000, guid: cfa214b327cea614c914c8fa7e2e97dd, type: 3}
+      - {fileID: 21300000, guid: e586e9ff9ca205d4090847113015a2d8, type: 3}
+      - {fileID: 21300000, guid: 3a17b8a2c5e7de5459f192b581166b87, type: 3}
+      - {fileID: 21300000, guid: 90660d915af94184794ac1a32b52620e, type: 3}
       playButton: {fileID: 8416051279386737666}
-      activeUpgradeBackground: {fileID: 21300000, guid: 482d6d1695830f14f94e2b86a5ffcf3b, type: 3}
-      disableUpgradeBackground: {fileID: 21300000, guid: 750813a9feea8ad42b58bf5baed60b2f, type: 3}
       money: {fileID: 8416051279386737668}
       ammo: {fileID: 8416051279386737667}
       crosshairCanvas: {fileID: 1191994005}
@@ -2709,6 +2757,17 @@ MonoBehaviour:
       value: 0
     upgrades:
       data: []
+--- !u!114 &1049836856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5732563677320380382, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+  m_PrefabInstance: {fileID: 8416051279386737665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1054531272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3034,7 +3093,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183356349}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3042,7 +3101,7 @@ Transform:
   - {fileID: 374632828}
   m_Father: {fileID: 1258386124}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!111 &1183356351
 Animation:
   m_ObjectHideFlags: 0
@@ -3447,7 +3506,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380843106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9863951, y: 4.510404, z: -27.187809}
+  m_LocalPosition: {x: 1.9865422, y: 4.38704, z: -26.461033}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5135,15 +5194,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9863951
+      value: 1.9865422
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.510404
+      value: 4.38704
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.187809
+      value: -26.461033
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5514,6 +5573,46 @@ PrefabInstance:
       propertyPath: m_text
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5184034
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 168.8137
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 111.0463
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000020503998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951174030273619264, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4011819726793971452, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.8962264
@@ -5620,6 +5719,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5333391578148629048, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
       propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732563677320380382, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfa214b327cea614c914c8fa7e2e97dd, type: 3}
+    - target: {fileID: 5732563677320380382, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732563677320380382, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732563677320380382, guid: 19a13654deb21664eabae8310387c3f8, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6321917960450423973, guid: 19a13654deb21664eabae8310387c3f8, type: 3}

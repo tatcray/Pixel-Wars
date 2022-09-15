@@ -9,13 +9,14 @@ namespace UI
 {
     public class UpgradeButton
     {
-        private UpgradeButtonDependencies upgradeButtonDependencies;
-        private UpgradeSystem upgradeSystem;
+        protected UpgradeButtonDependencies upgradeButtonDependencies;
+        protected UpgradeSystem upgradeSystem;
+        protected UpgradeType upgradeType;
+        
         private ObservableSerializedObject<int> money;
 
         private bool isEnabled;
         private int cost;
-        private UpgradeType upgradeType;
 
         public UpgradeButton(UpgradeButtonDependencies dependencies, UpgradeSystem upgradeSystem)
         {
@@ -25,7 +26,9 @@ namespace UI
             this.upgradeType = dependencies.upgradeType;
             dependencies.button.onClick.AddListener(Upgrade);
             
+            upgradeSystem.Upgraded += CalculateState;
             
+            CalculateState();
         }
         
         public void Hide()
@@ -37,9 +40,17 @@ namespace UI
             upgradeButtonDependencies.upgradeBackground.gameObject.SetActive(true);
             CalculateState();
         }
-        public void SetIcon(Sprite icon)
+        
+        protected virtual void CalculateState()
         {
-            upgradeButtonDependencies.icon.sprite = icon;
+            SetNewCost();
+            
+            if (money.Value > cost && upgradeSystem.CanBeUpgraded(upgradeType))
+            {
+                MakeAvailable();
+            }
+            else
+                MakeUnavailable();
         }
         
         private void SetCost(int money)
@@ -50,32 +61,31 @@ namespace UI
         private void MakeUnavailable()
         {
             upgradeButtonDependencies.upgradeBackground.sprite = upgradeButtonDependencies.disableUpgradeBackground;
+            upgradeButtonDependencies.button.enabled = false;
+            isEnabled = false;
         }
 
         private void MakeAvailable()
         {
             upgradeButtonDependencies.upgradeBackground.sprite = upgradeButtonDependencies.activeUpgradeBackground;
+            upgradeButtonDependencies.button.enabled = true;
+            isEnabled = true;
         }
 
-
-        private void CalculateState()
-        {
-            if (money.Value > cost && upgradeSystem.CanBeUpgraded(upgradeType))
-            {
-                MakeAvailable();
-            }
-            else
-                MakeUnavailable();
-        }
-        
         private void Upgrade()
         {
+            if (!isEnabled)
+                return;
             
+            SetNewCost();
+            money.Value -= cost;
+            
+            upgradeSystem.Upgrade(upgradeType);
         }
 
         private void SetNewCost()
         {
-            int cost = upgradeSystem.GetCost(upgradeType);
+            cost = upgradeSystem.GetCost(upgradeType);
             SetCost(cost);
         }
     }
