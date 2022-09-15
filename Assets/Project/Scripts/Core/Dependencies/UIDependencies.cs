@@ -13,8 +13,6 @@ namespace Dependencies
     {
         public List<UpgradeButtonDependencies> upgradeButtons;
         public Button playButton;
-        public Sprite activeUpgradeBackground;
-        public Sprite disableUpgradeBackground;
         public TextMeshProUGUI money;
         public TextMeshProUGUI ammo;
         public Canvas crosshairCanvas;
@@ -27,5 +25,8 @@ namespace Dependencies
         public UpgradeType upgradeType;
         public TextMeshProUGUI cost;
         public Image upgradeBackground;
+        public Image icon;
+        public Sprite activeUpgradeBackground;
+        public Sprite disableUpgradeBackground;
     }
 }

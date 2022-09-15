@@ -8,6 +8,8 @@ namespace Upgrades
 {
     public class UpgradeSystem
     {
+        public event Action Upgraded;
+        
         private Dictionary<WeaponType, WeaponUpgradesData> weaponUpgradesDatas =
             new Dictionary<WeaponType, WeaponUpgradesData>();
         private SerializableDictionary<UpgradeType, int> upgrades = new SerializableDictionary<UpgradeType, int>();
@@ -36,6 +38,8 @@ namespace Upgrades
                     ResetAllAttachedWeaponUpgrades();
                 
                 SendNewConfigToWeaponManager();
+                
+                Upgraded?.Invoke();
             }
         }
 
