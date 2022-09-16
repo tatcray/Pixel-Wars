@@ -108,11 +108,11 @@ namespace Core
             
             GameEvents.GameEndedByLose.Event += cornerFollower.ResetToDefaultPosition;
             GameEvents.GameEndedByLose.Event += wallManager.ResetCubes;
-            GameEvents.GameEndedByLose.Event += wallDestroyingObserver.ResetActiveCubesCount;
+            GameEvents.GameEndedByLose.Event += wallDestroyingObserver.Reset;
             
             GameEvents.GameEndedByWin.Event += () => save.wallIndex.Value++;
             GameEvents.GameEndedByWin.Event += cornerFollower.ResetToDefaultPosition;
-            GameEvents.GameEndedByWin.Event += wallDestroyingObserver.ResetActiveCubesCount;
+            GameEvents.GameEndedByWin.Event += wallDestroyingObserver.Reset;
             
             save.wallIndex.DataChanged += newWallIndex =>
             {

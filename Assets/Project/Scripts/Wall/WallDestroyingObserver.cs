@@ -12,24 +12,32 @@ namespace Wall
         private int activeCubes;
         private int totalWallCubesCount;
         private WallManager wallManager;
+        private bool isDestroyed;
         
         public WallDestroyingObserver(WallManager wallManager)
         {
             this.wallManager = wallManager;
             wallManager.WallSpawned += UpdateTotalCubesCount;
         }
-        
+
         public void RegisterCubeFall(Cube cube)
         {
+            if (isDestroyed)
+                return;
+
             activeCubes--;
-            
+
             if (IsWallDestroyed())
+            {
+                isDestroyed = true;
                 WallDestroyed?.Invoke();
+            }
         }
-        
-        public void ResetActiveCubesCount()
+
+        public void Reset()
         {
             activeCubes = totalWallCubesCount;
+            isDestroyed = false;
         }
 
         private bool IsWallDestroyed()
@@ -41,7 +49,7 @@ namespace Wall
         {
             totalWallCubesCount = wallManager.cubes.Count;
             CalculateActiveCubesToWin();
-            ResetActiveCubesCount();
+            Reset();
         }
 
         private void CalculateActiveCubesToWin()

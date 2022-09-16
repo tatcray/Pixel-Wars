@@ -39,6 +39,9 @@ namespace Wall
             particlePool = new ParticlePool(dependencies.convertParticles);
 
             InitializeConvertObjectsPool();
+
+            GameEvents.GameEndedByLose.Event += DisableAllActiveObjects;
+            GameEvents.GameEndedByWin.Event += DisableAllActiveObjects;
         }
         
         private void InitializeConvertObjectsPool()
@@ -74,6 +77,15 @@ namespace Wall
                 DisableConvertedObject();
             
             SpawnRandomMoney(cube.GetPosition());
+        }
+
+        private void DisableAllActiveObjects()
+        {
+            int activeObjectsCount = activeConvertedObjects.Count; 
+            for (int i = 0; i < activeObjectsCount; i++)
+            {
+                DisableConvertedObject();
+            }
         }
 
         private void DisableConvertedObject()
