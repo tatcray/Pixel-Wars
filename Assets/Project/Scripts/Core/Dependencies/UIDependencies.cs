@@ -21,6 +21,12 @@ namespace Dependencies
         public Canvas endGameCanvas;
         public Button viewAdButton;
         public Button noThanksButton;
+        public Image endGameIcon;
+        public TextMeshProUGUI aboveEndGameIcon;
+        public Sprite loseIconSprite;
+        public Sprite winIconSprite;
+        public Image rotatableGlow;
+        public float rotateGlowSpeed;
         public TextMeshProUGUI collectedMoneyOnRoundMultiplyText;
     }
 

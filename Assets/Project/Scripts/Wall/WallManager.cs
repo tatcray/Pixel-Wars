@@ -64,6 +64,12 @@ namespace Wall
             WallSpawned?.Invoke();
         }
 
+        public void ResetCubes()
+        {
+            foreach (var cube in cubes)
+                cube.Reset();
+        }
+
         private void SpawnHorizontalCubesLine(int y)
         {
             for (int x = 0; x < horizontalCubesCount; x++)

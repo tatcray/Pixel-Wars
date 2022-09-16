@@ -1,10 +1,12 @@
-﻿using Core;
+﻿using System;
+using Core;
 using UnityEngine;
 
 namespace Wall
 {
     public class WallDestroyingObserver
     {
+        public event Action WallDestroyed;
         private static readonly float wallDestroyedPercentToWin = 0.95f;
         private int minActiveCubesToDestroyed;
         private int activeCubes;
@@ -22,7 +24,7 @@ namespace Wall
             activeCubes--;
             
             if (IsWallDestroyed())
-                GameEvents.GameEndedByWin.Invoke();
+                WallDestroyed?.Invoke();
         }
         
         public void ResetActiveCubesCount()
