@@ -49,7 +49,6 @@ namespace Weapon
 
             isActive = true;
 
-            previousPosition = Vector3.negativeInfinity;
             activatedTime = 0;
         }
 
@@ -97,7 +96,7 @@ namespace Weapon
             
             MoveBullet();
 
-            if (previousPosition != Vector3.negativeInfinity && TryRegisterHit())
+            if (TryRegisterHit())
             {
                 Deactivate();
             }

@@ -51,7 +51,7 @@ namespace UI
             }
             else
             {
-                if (upgradeSystem.CanBeUpgraded(upgradeType))
+                if (!upgradeSystem.CanBeUpgraded(upgradeType))
                 {
                   upgradeButtonDependencies.costIcon.enabled = false;
                   upgradeButtonDependencies.cost.text = "";

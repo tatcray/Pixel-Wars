@@ -246,7 +246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 19.618}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46.7, y: 0}
+  m_AnchoredPosition: {x: 31.4, y: 1.1039}
   m_SizeDelta: {x: 42.6837, y: 42.6837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4263416079534208518
@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 8082611614502101822}
   - component: {fileID: 8267991933454339436}
   - component: {fileID: 3699764881114154713}
-  - component: {fileID: 7983625179799763355}
   - component: {fileID: 7196969832066470315}
   m_Layer: 0
   m_Name: Upgrade
@@ -368,19 +367,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7983625179799763355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3249671299921373962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fac7c472b0ef401eb36a38b6786a167a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeType: 2
 --- !u!114 &7196969832066470315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +411,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7983625179799763355}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.UpgradeButton, Assembly-CSharp
         m_MethodName: Upgrade
         m_Mode: 1
@@ -472,7 +458,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -30.7, y: 0}
+  m_AnchoredPosition: {x: -50.2, y: 2.2078}
   m_SizeDelta: {x: 115.1389, y: 40.476}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5460630562446011785
@@ -503,10 +489,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2300
+  m_text: 1424
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 21f161f8845392c469c7ed9cfd6398f5, type: 2}
-  m_sharedMaterial: {fileID: 7692979239006481799, guid: 21f161f8845392c469c7ed9cfd6398f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 109d039186060c045a609d064a3436a4, type: 2}
+  m_sharedMaterial: {fileID: -2784279529510069938, guid: 109d039186060c045a609d064a3436a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
