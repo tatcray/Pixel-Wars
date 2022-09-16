@@ -26,7 +26,7 @@ namespace Core
         private WallDestroyingObserver wallDestroyingObserver;
         private WeaponManager weaponManager;
         private GameScreen gameScreen;
-        private PreLoseGameScreen preLoseGameScreen;
+        private EndGameScreen endGameScreen;
         
         private void Start()
         {
@@ -80,13 +80,7 @@ namespace Core
         {
             wallManager = new WallManager(dependencies.wallConfig);
             wallDestroyingObserver = new WallDestroyingObserver(wallManager);
-            
-            save.wallIndex.DataChanged += newWallIndex =>
-            {
-                if (newWallIndex != loadedWallIndex)
-                    LoadWallFromSave();
-            };
-            
+
             LoadWallFromSave();
 
             new CubeMoneyConvertArea(save.money, dependencies.converterDependencies);
@@ -102,21 +96,33 @@ namespace Core
             gameScreen.SetMoney(save.money.Value);
             gameScreen.SetAmmo(weaponManager.ammo.Value);
 
-            preLoseGameScreen = new PreLoseGameScreen(dependencies.uiDependencies);
-            AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
-            ammoTracker.AmmoEnded += preLoseGameScreen.Show;
+            endGameScreen = new EndGameScreen(dependencies.uiDependencies);
         }
  
         private void InitializeGameEvents()
         {
-            GameEvents.GameEndedByWin.Event += () => save.wallIndex.Value++;
+            
             GameEvents.CubeFalled.Event += cube => cornerFollower.TrySetNewCorner(cube.GetPosition());
-            GameEvents.GameEndedByLose.Event += cornerFollower.ResetToDefaultPosition;
-            GameEvents.GameEndedByWin.Event += cornerFollower.ResetToDefaultPosition;
             
             GameEvents.CubeFalled.Event += wallDestroyingObserver.RegisterCubeFall;
+            
+            GameEvents.GameEndedByLose.Event += cornerFollower.ResetToDefaultPosition;
+            GameEvents.GameEndedByLose.Event += wallManager.ResetCubes;
             GameEvents.GameEndedByLose.Event += wallDestroyingObserver.ResetActiveCubesCount;
+            
+            GameEvents.GameEndedByWin.Event += () => save.wallIndex.Value++;
+            GameEvents.GameEndedByWin.Event += cornerFollower.ResetToDefaultPosition;
             GameEvents.GameEndedByWin.Event += wallDestroyingObserver.ResetActiveCubesCount;
+            
+            save.wallIndex.DataChanged += newWallIndex =>
+            {
+                if (newWallIndex != loadedWallIndex)
+                    LoadWallFromSave();
+            };
+            
+            AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
+            ammoTracker.AmmoEnded += endGameScreen.ShowLoseScreen;
+            wallDestroyingObserver.WallDestroyed += endGameScreen.ShowWinScreen;
         }
 
         private void LoadWallFromSave()

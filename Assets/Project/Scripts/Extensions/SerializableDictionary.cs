@@ -71,7 +71,7 @@ namespace Extensions
                 {
                     Add(data[i].Key, data[i].Value);
                 }
-                catch (ArgumentException argumentException)
+                catch (ArgumentException)
                 {
                     Add(default, data[i].Value);
                 }
