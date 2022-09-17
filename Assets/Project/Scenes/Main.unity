@@ -2250,15 +2250,15 @@ MonoBehaviour:
           cost: 2000
         - value: 30
           cost: 3000
-        - value: 32
+        - value: 33
           cost: 4000
-        - value: 34
+        - value: 35
           cost: 5000
-        - value: 36
+        - value: 37
           cost: 6000
-        - value: 38
-          cost: 7000
         - value: 40
+          cost: 7000
+        - value: 55
           cost: 10000
         radiusUpgrade:
         - value: 0.5
@@ -2349,11 +2349,11 @@ MonoBehaviour:
           cost: 51200
         - value: 17
           cost: 100000
-        - value: 18
-          cost: 150000
         - value: 19
+          cost: 150000
+        - value: 22
           cost: 200000
-        - value: 20
+        - value: 25
           cost: 300000
         radiusUpgrade:
         - value: 2.5
@@ -2422,33 +2422,33 @@ MonoBehaviour:
         ammoUpgrades:
         - value: 40
           cost: 100
-        - value: 45
-          cost: 200
         - value: 50
-          cost: 500
-        - value: 55
-          cost: 1000
+          cost: 200
         - value: 60
-          cost: 3000
-        - value: 65
-          cost: 5000
+          cost: 500
         - value: 70
-          cost: 10000
-        - value: 75
-          cost: 20000
+          cost: 1000
         - value: 80
-          cost: 50000
-        - value: 85
-          cost: 100000
-        - value: 90
-          cost: 200000
-        - value: 95
-          cost: 400000
+          cost: 3000
         - value: 100
-          cost: 500000
-        - value: 105
-          cost: 700000
+          cost: 5000
         - value: 110
+          cost: 10000
+        - value: 120
+          cost: 20000
+        - value: 130
+          cost: 50000
+        - value: 140
+          cost: 100000
+        - value: 150
+          cost: 200000
+        - value: 160
+          cost: 400000
+        - value: 170
+          cost: 500000
+        - value: 180
+          cost: 700000
+        - value: 200
           cost: 1000000
         radiusUpgrade:
         - value: 1
@@ -3620,7 +3620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380843106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9901743, y: 2.5520208, z: -15.650361}
+  m_LocalPosition: {x: 1.9884381, y: 3.2168133, z: -19.566841}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5354,15 +5354,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9901743
+      value: 1.9884381
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5520208
+      value: 3.2168133
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.650361
+      value: -19.566841
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalRotation.w
