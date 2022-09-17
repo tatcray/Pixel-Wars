@@ -31,7 +31,7 @@ namespace UI
 
         public void SetMoney(int money)
         {
-            dependencies.money.text = GetAdaptedValue(money);
+            dependencies.money.text = UIExtensions.GetAdaptedValue(money, "<font=\"Characters\" material=\"MoneyText\">");
         }
 
         public void SetAmmo(int ammo)
@@ -58,18 +58,6 @@ namespace UI
         private void HideCrosshair()
         {
             dependencies.crosshairCanvas.gameObject.SetActive(false);
-        }
-
-        private string GetAdaptedValue(int value)
-        {
-            if (value > 100000)
-            {
-                int thousands = value / 1000;
-                int hundreds = value / 100;
-                return $"{thousands}.{hundreds}k";
-            }
-
-            return value.ToString();
         }
         
         private void HideMenuButtons()

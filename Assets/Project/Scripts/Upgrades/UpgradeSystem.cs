@@ -35,8 +35,11 @@ namespace Upgrades
                 upgrades[type]++;
 
                 if (type == UpgradeType.Weapon)
+                {
+                    currentUpgradesData = weaponUpgradesDatas[GetCurrentWeaponType()];
                     ResetAllAttachedWeaponUpgrades();
-                
+                }
+
                 SendNewConfigToWeaponManager();
                 
                 Upgraded?.Invoke();

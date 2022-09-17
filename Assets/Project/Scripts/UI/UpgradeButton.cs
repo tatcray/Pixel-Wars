@@ -61,7 +61,7 @@ namespace UI
         
         private void SetCost(int money)
         {
-            upgradeButtonDependencies.cost.text = money.ToString();
+            upgradeButtonDependencies.cost.text = UIExtensions.GetAdaptedValue(money, "<font=\"Characters\" material=\"CostsText\">");
         }
 
         private void MakeUnavailable()

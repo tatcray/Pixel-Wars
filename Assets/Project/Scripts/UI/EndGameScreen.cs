@@ -62,7 +62,9 @@ namespace UI
 
         private void Show()
         {
-            dependencies.collectedMoneyOnRoundMultiplyText.text = (moneyTracker.GetCollectedMoneyOnRound() * 3).ToString();
+            int multipliedMoney = moneyTracker.GetCollectedMoneyOnRound() * 3;
+
+            dependencies.collectedMoneyOnRoundMultiplyText.text = UIExtensions.GetAdaptedValue(multipliedMoney);
             dependencies.endGameCanvas.gameObject.SetActive(true);
             dependencies.crosshairCanvas.gameObject.SetActive(false);
 

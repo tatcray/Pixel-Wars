@@ -104,9 +104,9 @@ namespace Weapon
 
         private bool TryRegisterHit()
         {
-            if (Physics.Linecast(previousPosition, transform.position, registerLayer))
+            if (Physics.Linecast(previousPosition, transform.position, out RaycastHit raycastHit, registerLayer))
             {
-                DamageCubesAround();
+                DamageCubesAround(raycastHit.point);
                 
                 GlobalWeaponCubeHitParticles.PlayCubeHitParticles(transform.position);
                 return true;
@@ -116,9 +116,9 @@ namespace Weapon
 
         }
 
-        private void DamageCubesAround()
+        private void DamageCubesAround(Vector3 position)
         {
-            Collider[] registeredColliders = Physics.OverlapSphere(transform.position, radius, registerLayer);
+            Collider[] registeredColliders = Physics.Overla(position, radius, registerLayer);
             foreach (var collider in registeredColliders)
             {
                 if (!isActive)
