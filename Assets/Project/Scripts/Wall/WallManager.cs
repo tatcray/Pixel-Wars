@@ -89,7 +89,7 @@ namespace Wall
         private bool IsAreaOnSpriteEmpty(int x, int y)
         {
             Color pixelColor = texture.GetPixel(x, y);
-            return pixelColor == Color.white || pixelColor.a == 0;
+            return pixelColor.a == 0;
         }
 
         private Material CreatePixelMaterial(int x, int y)
