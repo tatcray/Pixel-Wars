@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2149,52 +2149,52 @@ MonoBehaviour:
           cost: 0
         - value: 22
           cost: 0
-        - value: 24
-          cost: 0
-        - value: 26
+        - value: 25
           cost: 0
         - value: 28
           cost: 0
-        - value: 30
+        - value: 31
           cost: 0
-        - value: 32
+        - value: 35
           cost: 0
-        - value: 34
+        - value: 39
           cost: 0
-        - value: 36
+        - value: 43
           cost: 0
-        - value: 40
+        - value: 45
+          cost: 0
+        - value: 50
           cost: 0
         radiusUpgrade:
-        - value: 1
+        - value: 0.3
           cost: 13
-        - value: 1.1
+        - value: 0.35
           cost: 15
-        - value: 1.2
+        - value: 0.4
           cost: 18
-        - value: 1.3
+        - value: 0.45
           cost: 22
-        - value: 1.4
+        - value: 0.5
           cost: 0
-        - value: 1.5
+        - value: 0.55
           cost: 0
-        - value: 1.6
+        - value: 0.6
           cost: 0
-        - value: 1.7
+        - value: 0.65
           cost: 0
-        - value: 1.8
+        - value: 0.7
           cost: 0
-        - value: 1.9
+        - value: 0.75
           cost: 0
-        - value: 2
+        - value: 0.8
           cost: 0
-        - value: 2.1
+        - value: 0.85
           cost: 0
-        - value: 2.2
+        - value: 0.9
           cost: 0
-        - value: 2.3
+        - value: 0.95
           cost: 0
-        - value: 2.5
+        - value: 1
           cost: 0
         fireRateUpgrade:
         - value: 1
@@ -2261,35 +2261,35 @@ MonoBehaviour:
         - value: 40
           cost: 0
         radiusUpgrade:
+        - value: 0.5
+          cost: 0
+        - value: 0.55
+          cost: 0
+        - value: 0.6
+          cost: 0
+        - value: 0.65
+          cost: 0
+        - value: 0.7
+          cost: 0
+        - value: 0.75
+          cost: 0
+        - value: 0.8
+          cost: 0
+        - value: 0.85
+          cost: 0
+        - value: 0.9
+          cost: 0
+        - value: 0.95
+          cost: 0
         - value: 1
+          cost: 0
+        - value: 1.05
           cost: 0
         - value: 1.1
           cost: 0
+        - value: 1.15
+          cost: 0
         - value: 1.2
-          cost: 0
-        - value: 1.3
-          cost: 0
-        - value: 1.4
-          cost: 0
-        - value: 1.5
-          cost: 0
-        - value: 1.6
-          cost: 0
-        - value: 1.7
-          cost: 0
-        - value: 1.8
-          cost: 0
-        - value: 1.9
-          cost: 0
-        - value: 2
-          cost: 0
-        - value: 2.1
-          cost: 0
-        - value: 2.2
-          cost: 0
-        - value: 2.3
-          cost: 0
-        - value: 2.5
           cost: 0
         fireRateUpgrade:
         - value: 1.2
@@ -2515,36 +2515,36 @@ MonoBehaviour:
       - weaponType: 4
         weaponUpgradeCost: 0
         ammoUpgrades:
-        - value: 100
-          cost: 0
-        - value: 110
-          cost: 0
-        - value: 120
-          cost: 0
-        - value: 130
-          cost: 0
         - value: 150
-          cost: 0
-        - value: 160
-          cost: 0
-        - value: 170
           cost: 0
         - value: 200
           cost: 0
-        - value: 210
-          cost: 0
-        - value: 220
-          cost: 0
-        - value: 240
-          cost: 0
         - value: 250
-          cost: 0
-        - value: 260
-          cost: 0
-        - value: 270
           cost: 0
         - value: 300
           cost: 0
+        - value: 330
+          cost: 0
+        - value: 350
+          cost: 0
+        - value: 400
+          cost: 0
+        - value: 500
+          cost: 0
+        - value: 600
+          cost: 0
+        - value: 700
+          cost: 0
+        - value: 800
+          cost: 0
+        - value: 900
+          cost: 0
+        - value: 1000
+          cost: 500000
+        - value: 1500
+          cost: 5555555
+        - value: 2000
+          cost: 9999999
         radiusUpgrade:
         - value: 1.5
           cost: 0
@@ -2572,41 +2572,41 @@ MonoBehaviour:
           cost: 0
         - value: 2.7
           cost: 0
-        - value: 2.8
+        - value: 1
           cost: 0
-        - value: 3
-          cost: 0
+        - value: 1.2
+          cost: 9999999
         fireRateUpgrade:
-        - value: 0.3
-          cost: 0
-        - value: 0.29
-          cost: 0
-        - value: 0.27
-          cost: 0
-        - value: 0.26
-          cost: 0
-        - value: 0.25
-          cost: 0
-        - value: 0.23
-          cost: 0
-        - value: 0.22
-          cost: 0
         - value: 0.2
-          cost: 0
-        - value: 0.19
           cost: 0
         - value: 0.17
           cost: 0
-        - value: 0.16
-          cost: 0
         - value: 0.15
           cost: 0
-        - value: 0.14
+        - value: 0.13
           cost: 0
         - value: 0.12
           cost: 0
+        - value: 0.11
+          cost: 0
         - value: 0.1
           cost: 0
+        - value: 0.09
+          cost: 0
+        - value: 0.08
+          cost: 0
+        - value: 0.07
+          cost: 0
+        - value: 0.06
+          cost: 0
+        - value: 0.05
+          cost: 0
+        - value: 0.04
+          cost: 1000000
+        - value: 0.03
+          cost: 1500000
+        - value: 0.01
+          cost: 9999999
     wallConfig:
       sprites:
       - {fileID: 21300000, guid: 084217eae5bf56c419e71ff5a8a595c8, type: 3}
@@ -2654,7 +2654,7 @@ MonoBehaviour:
             weaponGameObject: {fileID: 1047694179}
             slavePrefab: {fileID: 1299227159659770290, guid: 9e250292f26dd144eb3a4f62d226a34a, type: 3}
             bulletConfig:
-              damage: 10
+              damage: 50
               lifeTime: 2
               speed: 35
               prefab: {fileID: 1494734145573426168, guid: ff1dd12be8bd92844a7e45b0cfcaf474, type: 3}
@@ -2673,7 +2673,7 @@ MonoBehaviour:
             weaponGameObject: {fileID: 1183356349}
             slavePrefab: {fileID: 1299227159659770290, guid: 9e250292f26dd144eb3a4f62d226a34a, type: 3}
             bulletConfig:
-              damage: 15
+              damage: 100
               lifeTime: 2
               speed: 50
               prefab: {fileID: 1494734145573426168, guid: ff1dd12be8bd92844a7e45b0cfcaf474, type: 3}
@@ -2692,7 +2692,7 @@ MonoBehaviour:
             weaponGameObject: {fileID: 446182760}
             slavePrefab: {fileID: 5406534850114340148, guid: 8af2c77cdfad8774eb78e773af517419, type: 3}
             bulletConfig:
-              damage: 10
+              damage: 15
               lifeTime: 2
               speed: 50
               prefab: {fileID: 2719688556028805753, guid: 7a0d32a012ab38a44afa81fb6a326192, type: 3}
@@ -2730,7 +2730,7 @@ MonoBehaviour:
             weaponGameObject: {fileID: 781246819}
             slavePrefab: {fileID: 1299227159659770290, guid: 9e250292f26dd144eb3a4f62d226a34a, type: 3}
             bulletConfig:
-              damage: 15
+              damage: 17
               lifeTime: 2
               speed: 70
               prefab: {fileID: 1494734145573426168, guid: ff1dd12be8bd92844a7e45b0cfcaf474, type: 3}
@@ -3620,7 +3620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380843106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9872215, y: 3.8939972, z: -23.556356}
+  m_LocalPosition: {x: 1.9904788, y: 2.4596136, z: -15.105929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5354,15 +5354,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9872215
+      value: 1.9904788
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.8939972
+      value: 2.4596136
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.556356
+      value: -15.105929
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalRotation.w
