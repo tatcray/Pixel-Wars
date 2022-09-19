@@ -22,6 +22,7 @@ namespace Weapon
         private LayerMask registerLayer;
 
         private Vector3 previousPosition;
+        private Collider[] registeredCollidersAlloc = new Collider[500];
 
         private float radius;
         private float damage;
@@ -116,15 +117,16 @@ namespace Weapon
 
         }
 
+        
         private void DamageCubesAround(Vector3 position)
         {
-            Collider[] registeredColliders = Physics.Overla(position, radius, registerLayer);
-            foreach (var collider in registeredColliders)
+            int registeredCollidersCount = Physics.OverlapSphereNonAlloc(position, radius, registeredCollidersAlloc, registerLayer);
+            for (int i = 0; i < registeredCollidersCount; i++)
             {
                 if (!isActive)
                     return;
                 
-                Cube cube = CubeTransformGlobalDictionary.Get(collider.transform);
+                Cube cube = CubeTransformGlobalDictionary.Get(registeredCollidersAlloc[i].transform);
 
                 if (cube != null && cube.IsHittable())
                 {

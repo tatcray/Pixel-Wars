@@ -7,7 +7,7 @@
             if (value > 10000000)
             {
                 int thousands = value / 1000000;
-                return $"{thousands}{tagPrefixes}>kk";
+                return $"{thousands}{tagPrefixes}kk";
             }
             
             if (value > 100000)

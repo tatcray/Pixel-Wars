@@ -35,7 +35,7 @@ namespace Extensions
 
             particleSystem.transform.position = position;
             
-            particleSystem.Play();
+            particleSystem.Play(true);
         }
 
         private ParticleSystem IncreasePool()

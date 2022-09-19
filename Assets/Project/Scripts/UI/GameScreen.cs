@@ -31,7 +31,7 @@ namespace UI
 
         public void SetMoney(int money)
         {
-            dependencies.money.text = UIExtensions.GetAdaptedValue(money, "<font=\"Characters\" material=\"MoneyText\">");
+            dependencies.money.text = UIExtensions.GetAdaptedValue(money, "<material=\"MoneyText\">");
         }
 
         public void SetAmmo(int ammo)
