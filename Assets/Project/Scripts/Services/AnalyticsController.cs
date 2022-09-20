@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Dependencies;
 using Saves;
+using UnityEngine;
 
 namespace Services
 {
@@ -10,17 +12,37 @@ namespace Services
 
         public static void SendLevelFailEvent()
         {
-            SendAnalytics("LevelFail", GetSingleParams($"Level_{currentLvl}"));
+            SendAnalytics("LevelFail", GetDoubleParams("Level", currentLvl.ToString()));
+        }
+
+        public static void SendSessionStartPlay(int timeIndex)
+        {
+            SendAnalytics("SessionStart", GetDoubleParams("SessionStartTime", timeIndex.ToString()));
+        }
+
+        public static void SendPlayedTime(int timeIndex)
+        {
+            SendAnalytics("PlayTime", GetDoubleParams("PlayedTime", timeIndex.ToString()));
+        }
+        
+        public static void SendPlayedSessionTime(int timeIndex)
+        {
+            SendAnalytics("SessionPlayTime", GetDoubleParams("SessionPlayedTime", timeIndex.ToString()));
         }
         
         public static void SendLevelCompletedEvent()
         {
-            SendAnalytics("LevelComplete", GetSingleParams($"Level_{currentLvl}"));
+            SendAnalytics("LevelComplete", GetDoubleParams("Level", currentLvl.ToString()));
         }
         
-        public static void SendWeaponUpgradeEvent(string weapon, string upgrade)
+        public static void SendWeaponUpgradeEvent(string weapon, string upgrade, int lvl)
         {
+            var parameters = new Dictionary<string, object> {
+                {weapon.ToUpper(), $"{upgrade.ToUpper()}_{lvl}"},
+                {"Level", currentLvl.ToString()}
+            };
             
+            SendAnalytics("Weapon_Upgrade", parameters);
         }
         
         public static void SendAdViewEvent(string adName)
@@ -44,7 +66,20 @@ namespace Services
 
         private static void SendAnalytics(string eventName, Dictionary<string, object> parameters)
         {
+            Debug.Log($"Send Event {eventName} {GetLogableParams(parameters)}");
             AppMetrica.Instance.ReportEvent(eventName, parameters);
+        }
+
+        private static string GetLogableParams(Dictionary<string, object> parameters)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var param in parameters)
+            {
+                stringBuilder.Append($" ({param.Key} {param.Value}) ");
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

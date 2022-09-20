@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Dependencies;
 using Extensions;
+using Services;
 using Weapon;
 
 namespace Upgrades
@@ -33,6 +34,8 @@ namespace Upgrades
             if (CanBeUpgraded(type))
             {
                 upgrades[type]++;
+                
+                AnalyticsController.SendWeaponUpgradeEvent(GetCurrentWeaponType().ToString(), type.ToString(), upgrades[type]);
 
                 if (type == UpgradeType.Weapon)
                 {

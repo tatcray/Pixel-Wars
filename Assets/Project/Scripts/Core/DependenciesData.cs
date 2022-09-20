@@ -13,4 +13,5 @@ public class DependenciesData
     public ConverterDependencies converterDependencies;
     public UIDependencies uiDependencies;
     public EnvironmentDependencies environmentDependencies;
+    public ServicesDependencies servicesDependencies;
 }

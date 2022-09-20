@@ -1,7 +1,9 @@
-﻿using Controller;
+﻿using System.Collections;
+using Controller;
 using Environment;
 using Extensions;
 using Saves;
+using Services;
 using UI;
 using Unity.Collections;
 using UnityEngine;
@@ -41,6 +43,7 @@ namespace Core
 
             InitializeUI();
             
+            InitializeAnalyticsEvents();
             InitializeGameEvents();
         }
 
@@ -100,6 +103,14 @@ namespace Core
 
             endGameScreen = new EndGameScreen(dependencies.uiDependencies);
         }
+
+        private void InitializeAnalyticsEvents()
+        {
+            GameEvents.GameEndedByLose.Event += AnalyticsController.SendLevelFailEvent;
+            GameEvents.GameEndedByWin.Event += AnalyticsController.SendLevelCompletedEvent;
+
+            CoroutinesHolder.StartCoroutine(SendAnalyticsTimeEvents());
+        }
  
         private void InitializeGameEvents()
         {
@@ -134,6 +145,24 @@ namespace Core
 
             Sprite sprite = dependencies.wallConfig.sprites[save.wallIndex.Value % dependencies.wallConfig.sprites.Count];
             wallManager.SpawnCubes(sprite);
+        }
+
+        private IEnumerator SendAnalyticsTimeEvents()
+        {
+            AnalyticsController.SendSessionStartPlay(save.timeIndex.Value);
+            WaitForSeconds interval = new WaitForSeconds(dependencies.servicesDependencies.secondsTimeInterval);
+
+            int sessionTimeIndex = 0;
+
+            while (true)
+            {
+                yield return interval;
+                save.timeIndex.Value++;
+                sessionTimeIndex++;
+
+                AnalyticsController.SendPlayedSessionTime(sessionTimeIndex);
+                AnalyticsController.SendPlayedTime(save.timeIndex.Value);
+            }
         }
     }
 }

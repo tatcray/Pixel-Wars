@@ -5,6 +5,6 @@ namespace Dependencies
     [Serializable]
     public class ServicesDependencies
     {
-        public AppMetrica appMetrica;
+        public float secondsTimeInterval;
     }
 }
