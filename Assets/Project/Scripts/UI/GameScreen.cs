@@ -38,6 +38,16 @@ namespace UI
         {
             dependencies.ammo.text = ammo.ToString();
         }
+        
+        public void SetNewProgressBarValue(float value)
+        {
+            dependencies.progressBarFiller.fillAmount = value;
+        }
+        
+        public void SetNewLevelOnProgressBar(int lvl)
+        {
+            dependencies.progressBarLvl.text = $"Level {lvl}";
+        }
 
         private void CreateButtons()
         {
@@ -58,6 +68,18 @@ namespace UI
         private void HideCrosshair()
         {
             dependencies.crosshairCanvas.gameObject.SetActive(false);
+        }
+
+        private void ShowProgressBar()
+        {
+            dependencies.progressBarLvl.gameObject.SetActive(true);
+            dependencies.progressBar.gameObject.SetActive(true);   
+        }
+
+        private void HideProgressBar()
+        {
+            dependencies.progressBarLvl.gameObject.SetActive(false);
+            dependencies.progressBar.gameObject.SetActive(false);
         }
         
         private void HideMenuButtons()
@@ -86,6 +108,8 @@ namespace UI
         {
             HideMenuButtons();
             ShowCrosshair();
+            ShowProgressBar();
+            SetNewProgressBarValue(0);
             
             GameEvents.GameStarted.Invoke();
         }
@@ -94,6 +118,7 @@ namespace UI
         {
             ShowMenuButtons();
             HideCrosshair();
+            HideProgressBar();
         }
     }
 }

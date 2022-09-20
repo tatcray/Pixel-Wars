@@ -92,9 +92,11 @@ namespace Core
 
             weaponManager.ammo.DataChanged += gameScreen.SetAmmo;
             save.money.DataChanged += gameScreen.SetMoney;
+            save.wallIndex.DataChanged += gameScreen.SetNewLevelOnProgressBar;
             
             gameScreen.SetMoney(save.money.Value);
             gameScreen.SetAmmo(weaponManager.ammo.Value);
+            gameScreen.SetNewLevelOnProgressBar(save.wallIndex.Value);
 
             endGameScreen = new EndGameScreen(dependencies.uiDependencies);
         }
@@ -123,6 +125,7 @@ namespace Core
             AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
             ammoTracker.AmmoEnded += endGameScreen.ShowLoseScreen;
             wallDestroyingObserver.WallDestroyed += endGameScreen.ShowWinScreen;
+            wallDestroyingObserver.WallDestroyPercentUpdated += gameScreen.SetNewProgressBarValue;
         }
 
         private void LoadWallFromSave()

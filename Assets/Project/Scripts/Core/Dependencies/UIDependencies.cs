@@ -27,6 +27,9 @@ namespace Dependencies
         public Sprite winIconSprite;
         public Image rotatableGlow;
         public float rotateGlowSpeed;
+        public Image progressBarFiller;
+        public Image progressBar;
+        public TextMeshProUGUI progressBarLvl;
         public TextMeshProUGUI collectedMoneyOnRoundMultiplyText;
     }
 

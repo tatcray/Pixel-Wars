@@ -22,7 +22,6 @@ namespace Weapon
         private LayerMask registerLayer;
 
         private Vector3 previousPosition;
-        private Collider[] registeredCollidersAlloc = new Collider[500];
 
         private float radius;
         private float damage;
@@ -109,7 +108,7 @@ namespace Weapon
             {
                 DamageCubesAround(raycastHit.point);
                 
-                GlobalWeaponCubeHitParticles.PlayCubeHitParticles(transform.position);
+                GlobalWeaponCubeHitParticles.PlayCubeHitParticles(raycastHit.point);
                 return true;
             }
 
@@ -120,17 +119,17 @@ namespace Weapon
         
         private void DamageCubesAround(Vector3 position)
         {
-            int registeredCollidersCount = Physics.OverlapSphereNonAlloc(position, radius, registeredCollidersAlloc, registerLayer);
-            for (int i = 0; i < registeredCollidersCount; i++)
+            var colliders = Physics.OverlapSphere(position, radius, registerLayer);
+            foreach (var collider in colliders)
             {
                 if (!isActive)
                     return;
                 
-                Cube cube = CubeTransformGlobalDictionary.Get(registeredCollidersAlloc[i].transform);
+                Cube cube = CubeTransformGlobalDictionary.Get(collider.transform);
 
                 if (cube != null && cube.IsHittable())
                 {
-                    DamageCube(cube);
+                    DamageCube(cube, position);
                 }
             }
         }
@@ -141,9 +140,9 @@ namespace Weapon
             transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
         }
 
-        private void DamageCube(Cube cube)
+        private void DamageCube(Cube cube, Vector3 point)
         {
-            float damage = CalculateDamage(cube);
+            float damage = CalculateDamage(cube, point);
             if (damage > 0)
             {
                 cube.TakeDamage(damage);
@@ -153,9 +152,9 @@ namespace Weapon
                 AddForceOnCube(cube);
         }
 
-        private float CalculateDamage(Cube cube)
+        private float CalculateDamage(Cube cube, Vector3 position)
         {
-            float distance = Vector3.Distance(transform.position, cube.GetPosition());
+            float distance = Vector3.Distance(position, cube.GetPosition());
 
             if (distance > radius)
                 return 0;

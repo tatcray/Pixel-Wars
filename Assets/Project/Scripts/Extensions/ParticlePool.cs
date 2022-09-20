@@ -23,7 +23,10 @@ namespace Extensions
             foreach (ParticleSystem particleSystem in particlesPool)
             {
                 if (!particleSystem.isPlaying)
+                {
+                    particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                     return particleSystem;
+                }
             }
 
             return IncreasePool();

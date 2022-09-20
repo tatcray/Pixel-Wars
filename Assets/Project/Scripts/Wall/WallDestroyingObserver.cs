@@ -6,6 +6,7 @@ namespace Wall
 {
     public class WallDestroyingObserver
     {
+        public event Action<float> WallDestroyPercentUpdated;
         public event Action WallDestroyed;
         private static readonly float wallDestroyedPercentToWin = 0.95f;
         private int minActiveCubesToDestroyed;
@@ -27,11 +28,14 @@ namespace Wall
 
             activeCubes--;
 
-            if (IsWallDestroyed())
+            float destroyPercent = GetDestroyPercent() / wallDestroyedPercentToWin;
+            if (destroyPercent >= 1)
             {
                 isDestroyed = true;
                 WallDestroyed?.Invoke();
             }
+            
+            WallDestroyPercentUpdated?.Invoke(destroyPercent);
         }
 
         public void Reset()
@@ -40,21 +44,15 @@ namespace Wall
             isDestroyed = false;
         }
 
-        private bool IsWallDestroyed()
+        private float GetDestroyPercent()
         {
-            return activeCubes < minActiveCubesToDestroyed;
+            return  1 - (float)activeCubes / (float)totalWallCubesCount;
         }
 
         private void UpdateTotalCubesCount()
         {
             totalWallCubesCount = wallManager.cubes.Count;
-            CalculateActiveCubesToWin();
             Reset();
-        }
-
-        private void CalculateActiveCubesToWin()
-        {
-            minActiveCubesToDestroyed = Mathf.CeilToInt(totalWallCubesCount * (1 - wallDestroyedPercentToWin));
         }
     }
 }

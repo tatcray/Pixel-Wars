@@ -150,7 +150,7 @@ namespace Wall
             damageAnimationSequence = DOTween.Sequence()
                 .Append(material.DOColor(targetColor, fadeTime))
                 .AppendInterval(idleTime)
-                .Append(material.DOColor(originalColor, fadeTime));
+                .Append(material.DOColor(originalColor, fadeTime)).Play();
         }
     }
 }
