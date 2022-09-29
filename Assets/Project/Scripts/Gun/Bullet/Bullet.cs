@@ -20,6 +20,7 @@ namespace Weapon
         private float lifeTime;
         private float physicsForce;
         private LayerMask registerLayer;
+        private TrailRenderer trailRenderer;
 
         private Vector3 previousPosition;
 
@@ -30,6 +31,7 @@ namespace Weapon
         {
             gameObject = GameObject.Instantiate(config.prefab, parent);
             gameObject.SetActive(false);
+            trailRenderer = gameObject.GetComponent<TrailRenderer>();
             
             transform = gameObject.transform;
 
@@ -75,6 +77,7 @@ namespace Weapon
             gameObject.SetActive(false);
 
             isActive = false;
+            trailRenderer.Clear();
 
             UnityEvents.Update -= MoveAndTryRegisterHit;
             UnityEvents.Update -= LifeTimeUpdate;

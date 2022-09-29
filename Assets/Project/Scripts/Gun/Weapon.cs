@@ -3,13 +3,15 @@ using System.Collections;
 using Dependencies;
 using Extensions;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Weapon
 {
     public class Weapon
     {
         public event Action Shooted;
-        
+        public ObservableSerializedObject<int> flyingBullets => bulletPool.activeBulletsCount;
+
         private Transform transform;
         private GameObject gameObject;
         private Coroutine shootCoroutine;
@@ -19,11 +21,8 @@ namespace Weapon
         private GameObjectPool slavePool;
         
         private BulletPool bulletPool;
-        private Transform bulletReleaseAnchor;
-        private Transform slaveAnchor;
-        private ParticleSystem bulletReleaseParticles;
-        private Animation shootAnimation;
-        private Vector3 slaveReleaseForce;
+
+        private WeaponDependency dependency;
         
         private float damage;
         private float radius;
@@ -32,16 +31,11 @@ namespace Weapon
         {
             gameObject = dependency.weaponGameObject;
             transform = gameObject.transform;
-
-            bulletReleaseAnchor = dependency.bulletReleaseAnchor;
-            bulletReleaseParticles = dependency.bulletReleaseParticles;
-            slaveWaitCoroutine = new WaitForSeconds(dependency.slaveLifeTime);
-            slaveReleaseForce = dependency.slaveForce;
             
+            this.dependency = dependency;
+            
+            slaveWaitCoroutine = new WaitForSeconds(dependency.slaveLifeTime);
             bulletPool = new BulletPool(dependency.bulletConfig);
-            slaveAnchor = dependency.weaponSlaveAnchor;
-            shootAnimation = dependency.shootAnimation;
-
             slavePool = new GameObjectPool(dependency.slavePrefab);
         }
         
@@ -89,10 +83,10 @@ namespace Weapon
 
         protected virtual void ReleaseBullet()
         {
-            bulletReleaseParticles.Play(true);
+            dependency.bulletReleaseParticles.Play(true);
             
             Bullet bullet = bulletPool.Pull();
-            bullet.SetPositionAndRotation(bulletReleaseAnchor.position, bulletReleaseAnchor.rotation.eulerAngles);
+            bullet.SetPositionAndRotation(dependency.bulletReleaseAnchor.position, dependency.bulletReleaseAnchor.rotation.eulerAngles);
             bullet.SetRadius(radius);
             bullet.Activate();
         }
@@ -100,12 +94,12 @@ namespace Weapon
         protected void ReleaseSlave()
         {
             GameObject slave = slavePool.Pull();
-            slave.transform.rotation = slaveAnchor.rotation;
-            slave.transform.position = slaveAnchor.position;
+            slave.transform.position = dependency.weaponSlaveAnchor.position;
 
             Rigidbody slaveRigidBody = slave.GetComponent<Rigidbody>();
             slaveRigidBody.velocity = Vector3.zero;
-            slaveRigidBody.AddForce(slaveReleaseForce, ForceMode.Impulse);
+            float multiplier = Random.Range(1f, dependency.maxForceMultiplier);
+            slaveRigidBody.AddForce(dependency.slaveForce * multiplier, ForceMode.Impulse);
             
             CoroutinesHolder.StartCoroutine(SlaveDisappearCoroutine(slave));
         } 
@@ -115,7 +109,7 @@ namespace Weapon
             while(true)
             {
                 yield return shootWaitCoroutine;
-                shootAnimation.Play();
+                dependency.shootAnimation.Play();
                 Shooted?.Invoke();
                 ReleaseBullet();
                 ReleaseSlave();

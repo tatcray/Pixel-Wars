@@ -12,34 +12,43 @@ namespace Services
 
         public static void SendLevelFailEvent()
         {
-            SendAnalytics("LevelFail", GetDoubleParams("Level", currentLvl.ToString()));
+            SendAnalytics("LevelFail", GetSingleParams($"Level_{currentLvl}"));
         }
 
         public static void SendSessionStartPlay(int timeIndex)
         {
-            SendAnalytics("SessionStart", GetDoubleParams("SessionStartTime", timeIndex.ToString()));
+            SendAnalytics("SessionStart", GetSingleParams($"SessionStartTime_{timeIndex}"));
         }
 
         public static void SendPlayedTime(int timeIndex)
         {
-            SendAnalytics("PlayTime", GetDoubleParams("PlayedTime", timeIndex.ToString()));
+            SendAnalytics("PlayTime", GetSingleParams($"PlayedTime_{timeIndex}"));
         }
         
         public static void SendPlayedSessionTime(int timeIndex)
         {
-            SendAnalytics("SessionPlayTime", GetDoubleParams("SessionPlayedTime", timeIndex.ToString()));
+            SendAnalytics("SessionPlayTime", GetSingleParams($"SessionPlayedTime_{timeIndex}"));
         }
         
         public static void SendLevelCompletedEvent()
         {
-            SendAnalytics("LevelComplete", GetDoubleParams("Level", currentLvl.ToString()));
+            SendAnalytics("LevelComplete", GetSingleParams($"Level_{currentLvl}"));
+        }
+        
+        public static void SendTutorialPartComplete(int tutorialPart)
+        {
+            SendAnalytics("TutorialComplete", GetSingleParams($"TutorialPart_{tutorialPart}"));
         }
         
         public static void SendWeaponUpgradeEvent(string weapon, string upgrade, int lvl)
         {
+            
+            var parametersLevel2 = new Dictionary<string, object> {
+                {$"Level_{currentLvl}", $"{upgrade}_{lvl}"}
+            };
+            
             var parameters = new Dictionary<string, object> {
-                {weapon.ToUpper(), $"{upgrade.ToUpper()}_{lvl}"},
-                {"Level", currentLvl.ToString()}
+                {weapon, parametersLevel2}
             };
             
             SendAnalytics("Weapon_Upgrade", parameters);
@@ -66,8 +75,11 @@ namespace Services
 
         private static void SendAnalytics(string eventName, Dictionary<string, object> parameters)
         {
+        #if UNITY_EDITOR
             Debug.Log($"Send Event {eventName} {GetLogableParams(parameters)}");
+        #else
             AppMetrica.Instance.ReportEvent(eventName, parameters);
+        #endif
         }
 
         private static string GetLogableParams(Dictionary<string, object> parameters)

@@ -11,19 +11,14 @@ namespace Wall
         private Transform gravityCenter;
         private float force;
         
-        public CubeGravityCenter(Transform gravityCenter, float force)
+        public CubeGravityCenter(Transform gravityCenter, float force, List<Cube> cubes)
         {
             this.gravityCenter = gravityCenter;
+            this.cubes = cubes;
 
             this.force = force;
             UnityEvents.Update += DragAllCubesInPoint;
         }
-
-        public void Add(Cube cube) =>
-            cubes.Add(cube);
-
-        public void Remove(Cube cube) =>
-            cubes.Remove(cube);
 
         private void DragAllCubesInPoint()
         {

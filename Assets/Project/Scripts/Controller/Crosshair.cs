@@ -9,11 +9,11 @@ namespace Controller
         public event Action<Vector3> PositionUpdated;
         public event Action ShootStarted;
         public event Action ShootStopped;
-        
+        public RectTransform transform { get; }
+
         private CrosshairReferences references;
 
         private float dragSpeed;
-        private RectTransform transform;
         private RectTransform canvasRect;
         private Canvas canvas;
         private Camera camera;

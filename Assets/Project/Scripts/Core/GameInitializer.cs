@@ -4,6 +4,7 @@ using Environment;
 using Extensions;
 using Saves;
 using Services;
+using Tutorial;
 using UI;
 using Unity.Collections;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Core
         private WeaponManager weaponManager;
         private GameScreen gameScreen;
         private EndGameScreen endGameScreen;
+        private TutorialManager tutorialManager;
         
         private void Start()
         {
@@ -42,6 +44,7 @@ namespace Core
             InitializeCamera();
 
             InitializeUI();
+            InitializeTutorial();
             
             InitializeAnalyticsEvents();
             InitializeGameEvents();
@@ -104,6 +107,17 @@ namespace Core
             endGameScreen = new EndGameScreen(dependencies.uiDependencies);
         }
 
+        private void InitializeTutorial()
+        {
+            tutorialManager = new TutorialManager(save.tutorialIndex);
+            tutorialManager.AddTutorialPart(new ButtonTutorial(dependencies.tutorialDependencies, dependencies.tutorialDependencies.playButton));
+            tutorialManager.AddTutorialPart(new ShootTutorial(dependencies.tutorialDependencies, crosshair));
+            tutorialManager.AddTutorialPart(new UpgradeTutorial(dependencies.tutorialDependencies, save.money));
+            
+            if (!tutorialManager.IsFinished())
+                tutorialManager.StartTutorial();
+        }
+
         private void InitializeAnalyticsEvents()
         {
             GameEvents.GameEndedByLose.Event += AnalyticsController.SendLevelFailEvent;
@@ -133,8 +147,8 @@ namespace Core
                     LoadWallFromSave();
             };
             
-            AmmoTracker ammoTracker = new AmmoTracker(weaponManager.ammo);
-            ammoTracker.AmmoEnded += endGameScreen.ShowLoseScreen;
+            AmmoTracker ammoTracker = new AmmoTracker(weaponManager.playingBullets);
+            ammoTracker.AmmoEnded += () => this.InvokeDelay(endGameScreen.ShowLoseScreen, 0.4f);
             wallDestroyingObserver.WallDestroyed += endGameScreen.ShowWinScreen;
             wallDestroyingObserver.WallDestroyPercentUpdated += gameScreen.SetNewProgressBarValue;
         }

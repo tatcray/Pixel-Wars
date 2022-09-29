@@ -8,6 +8,7 @@ namespace Weapon
 {
     public class BulletPool
     {
+        public ObservableSerializedObject<int> activeBulletsCount { get; } = new ObservableSerializedObject<int>();
         private GameObject poolParent;
         
         private BulletConfig bulletConfig;
@@ -33,7 +34,8 @@ namespace Weapon
             
             bulletPool.Remove(bullet);
             activeBullets.Add(bullet);
-            
+            activeBulletsCount.Value = activeBullets.Count;
+
             return bullet;
         }
 
@@ -47,6 +49,7 @@ namespace Weapon
             
             bulletPool.Add(bullet);
             activeBullets.Remove(bullet);
+            activeBulletsCount.Value = activeBullets.Count;
         }
 
         public void DeactivateAllActiveBullets()
@@ -54,6 +57,8 @@ namespace Weapon
             List<Bullet> bulletsToDeactivate = new List<Bullet>(activeBullets);
             foreach (Bullet bullet in bulletsToDeactivate)
                 bullet.Deactivate();
+
+            activeBulletsCount.Value = 0;
         }
         
         private void IncreaseGameObjectPool()

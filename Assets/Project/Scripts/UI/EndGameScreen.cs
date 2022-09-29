@@ -30,6 +30,7 @@ namespace UI
             
         private MoneyTracker moneyTracker;
         private UIDependencies dependencies;
+        private int collectableMoney;
         
         public EndGameScreen(UIDependencies uiDependencies)
         {
@@ -42,6 +43,8 @@ namespace UI
 
         public void ShowWinScreen()
         {
+            collectableMoney = moneyTracker.GetCollectedMoneyOnRound() * 3;
+
             Show();
             
             dependencies.endGameIcon.sprite = dependencies.winIconSprite;
@@ -52,6 +55,8 @@ namespace UI
 
         public void ShowLoseScreen()
         {
+            collectableMoney = moneyTracker.GetCollectedMoneyOnRound() * 3;
+
             Show();
             
             dependencies.endGameIcon.sprite = dependencies.loseIconSprite;
@@ -62,9 +67,9 @@ namespace UI
 
         private void Show()
         {
-            int multipliedMoney = moneyTracker.GetCollectedMoneyOnRound() * 3;
-
-            dependencies.collectedMoneyOnRoundMultiplyText.text = UIExtensions.GetAdaptedValue(multipliedMoney);
+            GameEvents.EndScreenShowed.Invoke();
+            
+            dependencies.collectedMoneyOnRoundMultiplyText.text = collectableMoney.ToString();
             dependencies.endGameCanvas.gameObject.SetActive(true);
             dependencies.crosshairCanvas.gameObject.SetActive(false);
 
@@ -87,7 +92,7 @@ namespace UI
         private void ShowAd()
         {
             //reward
-            DataSaveLoader.SerializableData.money.Value += moneyTracker.GetCollectedMoneyOnRound() * 3;
+            DataSaveLoader.SerializableData.money.Value += collectableMoney;
             Hide();
             onScreenInteractionEnd();
         }

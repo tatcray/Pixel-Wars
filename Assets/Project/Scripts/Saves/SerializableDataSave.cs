@@ -11,6 +11,7 @@ namespace Saves
         public ObservableSerializedObject<int> wallIndex = new ObservableSerializedObject<int>();
         public ObservableSerializedObject<int> money = new ObservableSerializedObject<int>();
         public ObservableSerializedObject<int> timeIndex = new ObservableSerializedObject<int>();
+        public ObservableSerializedObject<int> tutorialIndex = new ObservableSerializedObject<int>();
         public SerializableDictionary<UpgradeType, int> upgrades = new SerializableDictionary<UpgradeType, int>();
 
         public SerializableDataSave()
@@ -26,6 +27,7 @@ namespace Saves
             writer.Write(wallIndex.Value);
             writer.Write(money.Value);
             writer.Write(timeIndex.Value);
+            writer.Write(tutorialIndex.Value);
             
             writer.Write(upgrades.Count);
             foreach (var keyValue in upgrades)
@@ -40,6 +42,7 @@ namespace Saves
             wallIndex.Value = reader.ReadInt32();
             money.Value = reader.ReadInt32();
             timeIndex.Value = reader.ReadInt32();
+            tutorialIndex.Value = reader.ReadInt32();
 
             upgrades.Clear();
             int upgradesLength = reader.ReadInt32();

@@ -14,4 +14,5 @@ public class DependenciesData
     public UIDependencies uiDependencies;
     public EnvironmentDependencies environmentDependencies;
     public ServicesDependencies servicesDependencies;
+    public TutorialDependencies tutorialDependencies;
 }

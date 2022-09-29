@@ -18,6 +18,7 @@ namespace Wall
         private List<ConvertObjectsPool> convertObjectsPools = new List<ConvertObjectsPool>();
         
         private ObservableSerializedObject<int> moneyObject;
+        private List<Cube> fallCubes = new List<Cube>();
         private ConverterDependencies dependencies;
         private CubeGravityCenter cubeGravityCenter;
 
@@ -32,9 +33,9 @@ namespace Wall
             
             dependencies.cubeConvertArea.TriggerEntered += RegisterAreaTrigger;
 
-            cubeGravityCenter = new CubeGravityCenter(dependencies.gravityPivot, dependencies.convertAreaGravityForce);
+            cubeGravityCenter = new CubeGravityCenter(dependencies.gravityPivot, dependencies.convertAreaGravityForce, fallCubes);
 
-            GameEvents.CubeFalled.Event += cube => cubeGravityCenter.Add(cube);
+            GameEvents.CubeFalled.Event += cube => fallCubes.Add(cube);
 
             particlePool = new ParticlePool(dependencies.convertParticles);
 
@@ -42,6 +43,8 @@ namespace Wall
 
             GameEvents.GameEndedByLose.Event += DisableAllActiveObjects;
             GameEvents.GameEndedByWin.Event += DisableAllActiveObjects;
+
+            GameEvents.EndScreenShowed.Event += ConvertAllFallCubes;
         }
         
         private void InitializeConvertObjectsPool()
@@ -61,8 +64,19 @@ namespace Wall
         private void RegisterAreaTrigger(Collider enter)
         {
             Cube cube = CubeTransformGlobalDictionary.Get(enter.transform);
-            
+
             if (cube != null && cube.IsFall())
+            {
+                ConvertCube(cube);
+                SpawnRandomMoney(cube.GetPosition());
+            }
+        }
+        
+        private void ConvertAllFallCubes()
+        {
+            List<Cube> fallCubesCopy = new List<Cube>(fallCubes);
+            
+            foreach (Cube cube in fallCubesCopy)
                 ConvertCube(cube);
         }
 
@@ -71,12 +85,7 @@ namespace Wall
             cube.Hide();
             moneyObject.Value++;
 
-            cubeGravityCenter.Remove(cube);
-
-            if (attachedConvertedObjectsPool.Count > dependencies.maxActiveObjects)
-                DisableConvertedObject();
-            
-            SpawnRandomMoney(cube.GetPosition());
+            fallCubes.Remove(cube);
         }
 
         private void DisableAllActiveObjects()
@@ -102,6 +111,9 @@ namespace Wall
 
         private void SpawnRandomMoney(Vector3 position)
         {
+            if (attachedConvertedObjectsPool.Count > dependencies.maxActiveObjects)
+                DisableConvertedObject();
+            
             ConvertObjectsPool objectsPool = GetRandomPool();
             
             GameObject gameObject = objectsPool.attachedPool.Pull();

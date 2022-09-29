@@ -18,6 +18,9 @@ namespace Dependencies
         public Animation shootAnimation;
         public Transform weaponSlaveAnchor;
         public Vector3 slaveForce;
+        public float maxForceMultiplier;
+        public float RecoilMinAngle;
+        public float RecoilMaxAngle;
         public float slaveLifeTime;
         public ParticleSystem bulletReleaseParticles;
         public Transform bulletReleaseAnchor;

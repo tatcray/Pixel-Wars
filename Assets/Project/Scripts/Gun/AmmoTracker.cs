@@ -1,5 +1,6 @@
 ﻿using System;
 using Extensions;
+using UnityEngine;
 
 namespace Weapon
 {
@@ -15,7 +16,9 @@ namespace Weapon
         private void IsAmmoEnded(int newAmmo)
         {
             if (newAmmo <= 0)
+            {
                 AmmoEnded?.Invoke();
+            }
         }
     }
 }
