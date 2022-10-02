@@ -31,6 +31,7 @@ namespace Core
         private GameScreen gameScreen;
         private EndGameScreen endGameScreen;
         private TutorialManager tutorialManager;
+        private AdController adController;
         
         private void Start()
         {
@@ -47,6 +48,7 @@ namespace Core
             InitializeTutorial();
             
             InitializeAnalyticsEvents();
+            InitializeAds();
             InitializeGameEvents();
         }
 
@@ -125,6 +127,12 @@ namespace Core
 
             CoroutinesHolder.StartCoroutine(SendAnalyticsTimeEvents());
         }
+        
+        private void InitializeAds()
+        {
+            adController = new AdController(dependencies.servicesDependencies);
+            adController.InitializeSdk();
+        }
  
         private void InitializeGameEvents()
         {
@@ -168,7 +176,7 @@ namespace Core
         private IEnumerator SendAnalyticsTimeEvents()
         {
             AnalyticsController.SendSessionStartPlay(save.timeIndex.Value);
-            WaitForSeconds interval = new WaitForSeconds(dependencies.servicesDependencies.secondsTimeInterval);
+            WaitForSeconds interval = new WaitForSeconds(dependencies.servicesDependencies.analyticsSecondsTimeInterval);
 
             int sessionTimeIndex = 0;
 

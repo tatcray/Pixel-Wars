@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+    <androidPackages>
+        <androidPackage spec="com.applovin.mediation:mytarget-adapter:5.15.1.7"/>
+    </androidPackages>
+    <iosPods>
+        <iosPod name="AppLovinMediationMyTargetAdapter" version="5.16.0.0"/>
+    </iosPods>
+</dependencies>

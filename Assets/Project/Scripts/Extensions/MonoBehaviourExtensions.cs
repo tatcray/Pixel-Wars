@@ -6,9 +6,9 @@ namespace Extensions
 {
     public static class MonoBehaviourExtensions
     {
-        public static void InvokeDelay(this MonoBehaviour monoBehaviour, Action method, float delay)
+        public static Coroutine InvokeDelay(this MonoBehaviour monoBehaviour, Action method, float delay)
         {
-            monoBehaviour.StartCoroutine(DelayCoroutine());
+            return monoBehaviour.StartCoroutine(DelayCoroutine());
 
             IEnumerator DelayCoroutine()
             {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+    <androidPackages>
+        <androidPackage spec="com.applovin.mediation:fyber-adapter:8.2.0.0"/>
+    </androidPackages>
+    <iosPods>
+        <iosPod name="AppLovinMediationFyberAdapter" version="8.1.6.0"/>
+    </iosPods>
+</dependencies>

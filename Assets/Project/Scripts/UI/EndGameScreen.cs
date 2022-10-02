@@ -46,7 +46,7 @@ namespace UI
             collectableMoney = moneyTracker.GetCollectedMoneyOnRound() * 3;
 
             Show();
-            
+
             dependencies.endGameIcon.sprite = dependencies.winIconSprite;
             onScreenInteractionEnd = GameEvents.GameEndedByWin.Invoke;
 
@@ -92,16 +92,24 @@ namespace UI
         private void ShowAd()
         {
             //reward
-            DataSaveLoader.SerializableData.money.Value += collectableMoney;
-            Hide();
-            onScreenInteractionEnd();
+            AdController.ShowRewarded(GiveMoneyReward, EndScreenInteraction);
         }
 
         private void SkipAd()
         {
-            //inter
+            AdController.ShowInterstitial(EndScreenInteraction);
+        }
+
+        private void EndScreenInteraction()
+        {
             Hide();
             onScreenInteractionEnd();
+        }
+
+        private void GiveMoneyReward()
+        {
+            DataSaveLoader.SerializableData.money.Value += collectableMoney;
+            EndScreenInteraction();
         }
     }
 }

@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 1fb29aa521f0e4d708c4603614a070a6
+labels:
+- al_max
+- al_max_export_path-MaxSdk/Mediation/MyTarget/Editor/Dependencies.xml
+- al_max_export_path-MaxSdk\Mediation\MyTarget\Editor\Dependencies.xml
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
