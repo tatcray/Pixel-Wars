@@ -3,6 +3,7 @@ guid: e62194ea5c31a40508d9c3d15a495ad1
 labels:
 - al_max
 - al_max_export_path-MaxSdk/Prefabs
+- al_max_export_path-MaxSdk\Prefabs
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
