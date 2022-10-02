@@ -2705,7 +2705,7 @@ MonoBehaviour:
         - value: 0.3
           cost: 2500
       - weaponType: 1
-        weaponUpgradeCost: 100000
+        weaponUpgradeCost: 75000
         ammoUpgrades:
         - value: 12
           cost: 20
@@ -2800,7 +2800,7 @@ MonoBehaviour:
         - value: 0.4
           cost: 10000
       - weaponType: 2
-        weaponUpgradeCost: 1000000
+        weaponUpgradeCost: 100000
         ammoUpgrades:
         - value: 6
           cost: 50
@@ -2895,7 +2895,7 @@ MonoBehaviour:
         - value: 1
           cost: 300000
       - weaponType: 3
-        weaponUpgradeCost: 10000000
+        weaponUpgradeCost: 400000
         ammoUpgrades:
         - value: 40
           cost: 100
@@ -2990,7 +2990,7 @@ MonoBehaviour:
         - value: 0.2
           cost: 1000000
       - weaponType: 4
-        weaponUpgradeCost: 2147483647
+        weaponUpgradeCost: 600000
         ammoUpgrades:
         - value: 150
           cost: 500
@@ -4217,7 +4217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380843106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.505191, y: 2.11465, z: -32.380108}
+  m_LocalPosition: {x: 0.50519097, y: 2.1146452, z: -32.38008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6027,15 +6027,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.505191
+      value: 0.50519097
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.11465
+      value: 2.1146452
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.380108
+      value: -32.38008
       objectReference: {fileID: 0}
     - target: {fileID: 5216690268975613405, guid: 26be923cbf7489c428d95c4b52aa35f3, type: 3}
       propertyPath: m_LocalRotation.w

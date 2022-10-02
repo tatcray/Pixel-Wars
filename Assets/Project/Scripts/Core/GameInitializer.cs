@@ -149,6 +149,10 @@ namespace Core
             
             AmmoTracker ammoTracker = new AmmoTracker(weaponManager.playingBullets);
             ammoTracker.AmmoEnded += () => this.InvokeDelay(endGameScreen.ShowLoseScreen, 0.4f);
+            ammoTracker.StartTracking();
+            GameEvents.EndScreenShowed.Event += ammoTracker.StopTracking;
+            GameEvents.GameStarted.Event += ammoTracker.StartTracking;
+            
             wallDestroyingObserver.WallDestroyed += endGameScreen.ShowWinScreen;
             wallDestroyingObserver.WallDestroyPercentUpdated += gameScreen.SetNewProgressBarValue;
         }
