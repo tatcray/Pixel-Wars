@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AppodealAds.Unity.Api;
 using Dependencies;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -28,14 +29,16 @@ public class AdController
 
     public void InitializeSdk()
     {
-        MaxSdkCallbacks.OnSdkInitializedEvent += (s) => 
+        // MaxSdkCallbacks.OnSdkInitializedEvent += (s) => 
         {
             PreloadAds();
             // ShowBanner();
         };
 
-        MaxSdk.SetSdkKey(servicesDependencies.sdkKey);
-        MaxSdk.InitializeSdk();
+        // MaxSdk.SetSdkKey(servicesDependencies.sdkKey);
+        // MaxSdk.InitializeSdk();
+        
+        Appodeal.initialize("YOUR_APPODEAL_APP_KEY", Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER_BOTTOM, true);
     }
 
     private void ShowBanner()
@@ -58,14 +61,14 @@ public class Banner
     {
         bannerAdUnitId = adUnitId;
         
-        MaxSdk.CreateBanner(bannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
-
-        MaxSdk.SetBannerBackgroundColor(bannerAdUnitId, Color.white);
+        // MaxSdk.CreateBanner(bannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
+        //
+        // MaxSdk.SetBannerBackgroundColor(bannerAdUnitId, Color.white);
     }
 
     public void Show()
     {
-        MaxSdk.ShowBanner(bannerAdUnitId);
+        // MaxSdk.ShowBanner(bannerAdUnitId);
     }
 }
 
@@ -82,12 +85,12 @@ public class Rewarded
     {
         this.adUnitId = adUnitId;
         
-        MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
-        
-        MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += (s, info) => RewardFailed();
-        MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (s, info) => RewardFailed();
-        MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += (s, info, arg3) => RewardFailed();
-        MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (s, reward, arg3) => RewardSuccess();
+        // MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
+        //
+        // MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += (s, info) => RewardFailed();
+        // MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (s, info) => RewardFailed();
+        // MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += (s, info, arg3) => RewardFailed();
+        // MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (s, reward, arg3) => RewardSuccess();
         
         LoadRewardedAd();
     }
@@ -116,9 +119,9 @@ public class Rewarded
 
     private bool ShowRewarded()
     {
-        if (MaxSdk.IsRewardedAdReady(adUnitId))
+        if (true) // is ready)
         {
-            MaxSdk.ShowRewardedAd(adUnitId);
+            //MaxSdk.ShowRewardedAd(adUnitId);
             
             shouldShowOnLoad = false;
             LoadRewardedAd();
@@ -131,10 +134,10 @@ public class Rewarded
     
     private void LoadRewardedAd()
     {
-        MaxSdk.LoadRewardedAd(adUnitId);
+        // MaxSdk.LoadRewardedAd(adUnitId);
     }
     
-    private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    private void OnRewardedAdLoadedEvent(string adUnitId)//, MaxSdkBase.AdInfo adInfo)
     {
         retryAttempt = 0;
         
@@ -156,11 +159,11 @@ public class Interstitial
     {
         this.adUnitId = adUnitId;
         
-        MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialAdLoadedEvent;
-        
-        MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += (s, info) => ViewFail();
-        MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (s, info) => ViewSuccesful();
-        MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += (s, info, arg3) => ViewFail();
+        // MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialAdLoadedEvent;
+        //
+        // MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += (s, info) => ViewFail();
+        // MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (s, info) => ViewSuccesful();
+        // MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += (s, info, arg3) => ViewFail();
         
         LoadRewardedAd();
     }
@@ -188,9 +191,9 @@ public class Interstitial
 
     private bool ShowRewarded()
     {
-        if (MaxSdk.IsInterstitialReady(adUnitId))
+        if (true) //is inter ready
         {
-            MaxSdk.ShowInterstitial(adUnitId);
+            //MaxSdk.ShowInterstitial(adUnitId);
             
             shouldShowOnLoad = false;
             LoadRewardedAd();
@@ -203,10 +206,10 @@ public class Interstitial
     
     private void LoadRewardedAd()
     {
-        MaxSdk.LoadInterstitial(adUnitId);
+        
     }
     
-    private void OnInterstitialAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    private void OnInterstitialAdLoadedEvent(string adUnitId)//, MaxSdkBase.AdInfo adInfo)
     {
         retryAttempt = 0;
         

@@ -3,7 +3,7 @@ using Dependencies;
 using Extensions;
 using UnityEngine;
 
-namespace Environment
+namespace Environments
 {
     public class CloudsManager
     {
