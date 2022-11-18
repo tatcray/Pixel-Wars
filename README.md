@@ -31,23 +31,23 @@ git clone https://github.com/re-mouse/pixel-wars.git
 Game starts from [Core/GameIntializer.cs](./Assets/Project/Scripts/Core/GameInitializer.cs)
 ```csharp
 private void Start()
-        {
-            InitializeEnvironment();
-            
-            InitializeSaves();
-            InitializeCubes();
-            InitializeCrosshair();
-            InitializeWeapon();
-            InitializeUpgrades();
-            InitializeCamera();
+{
+    InitializeEnvironment();
 
-            InitializeUI();
-            InitializeTutorial();
-            
-            InitializeAnalyticsEvents();
-            InitializeAds();
-            InitializeGameEvents();
-        }
+    InitializeSaves();
+    InitializeCubes();
+    InitializeCrosshair();
+    InitializeWeapon();
+    InitializeUpgrades();
+    InitializeCamera();
+
+    InitializeUI();
+    InitializeTutorial();
+
+    InitializeAnalyticsEvents();
+    InitializeAds();
+    InitializeGameEvents();
+}
 ```
 
 ## Used plugins
